@@ -1,0 +1,96 @@
+{
+  "title": "CTCI conceptions and algorithm",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<ul><li>bit manipulation</li></ul>"
+    },
+    {
+      "type": "text",
+      "data": "<ul><li>brain teasers</li></ul>"
+    },
+    {
+      "type": "text",
+      "data": "<ul><li>math and probability</li></ul>"
+    },
+    {
+      "type": "text",
+      "data": "<ul><li>Object-Oriented Design</li></ul>"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li><span style=\"line-height: 1.4;\">handle ambiguity&nbsp;</span>—<span style=\"line-height: 1.4;\">&nbsp;ask questions rather than making assumptions</span><br></li><li><span style=\"line-height: 1.4;\">think of core objects of the design&nbsp;</span>—<span style=\"line-height: 1.4;\">&nbsp;主要的功能部分</span></li><li><span style=\"line-height: 1.4;\">analyze relationships among all core&nbsp;</span>objects</li><ol><li>包含关系</li><li>继承关系</li><li>关系是一对一 一对多 还是多对多 如何存储这些关系</li><li>添加合适的restrictions</li></ol></ol>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// singleton pattern\npublic class Restaurent {\n  private static Restaurant _instance = null;\n  if(_instance == null)\n    _instance = new Restaurent();\n  else\n    return _instance;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// factory pattern\npublic class CardGame {\n  public static CardGame createOne(GameType type) {\n    if(type == GameType.Poker) \n      return new PokerGame();\n    ekse if(type == GameType.BlackTrack)\n      return new BlackTrackGame();\n    else\n      return null;\n  }\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Card {\n  int color;\n  int number; \n}"
+    },
+    {
+      "type": "text",
+      "data": "<ul><li>scalability and memory limit</li></ul>"
+    },
+    {
+      "type": "text",
+      "data": "1. 给出一个不考虑scalability 和 memory的答案；<div>2. 然后修改策略来用更少的空间</div><div><br></div>"
+    },
+    {
+      "type": "text",
+      "data": "<ul><li>sorting and searching</li></ul>"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li><span style=\"line-height: 1.4;\">掌握merge sort和quick sort</span></li><ol><li><span style=\"line-height: 1.4;\">merge sort: average time and worst time both nlogn;</span></li><li><span style=\"line-height: 1.4;\">merge sort&nbsp;</span>—<span style=\"line-height: 1.4;\">&nbsp;extra space</span></li><li><span style=\"line-height: 1.4;\">quick sort average time nlogn worse case n2&nbsp;</span>—<span style=\"line-height: 1.4;\">&nbsp;which means that when partition point is not near median and (lets say its always the smallest pr the largest then n2)</span><span style=\"line-height: 1.4;\">&nbsp;</span></li></ol></ol><div><br></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public void quicksort(int[] arr, int start, int end) {\n  if(start >= end)\n    return;\n  int mid = partition(arr, start, end);\n  quicksort(arr, start, mid - 1);\n  quicksort(arr, mid, end);\n}\n\npublic int partition (int[] arr, int start, int end) {\n  int pivot = arr[(start + end) / 2];\n  swap(arr, (start + end) / 2, end);\n  while(start <= end) {\n    while(start <= end && arr[start] < pivot) start++;\n    while(start <= end && arr[end] >= pivot) end--;\n    if(start <= end)\n      swap(arr, start++, end++);\n  }\n  return left; \n  // left here is the first index of element that greater than pivot;\n  // it should be the same if I tried arr[start] <= pivot\n}"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li>radix sort&nbsp;</li><ol><li>大概的想法进行 bit 操作 比如对于一组interger 先对第一位进行排序 让所有0在前 1在后， 然后进行下一个digit</li><li>这样的话效率是 kn k 是 num of bits</li></ol></ol>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "//11.2  write a method to sort an array of strings so that all anagrams are next to // other\npublic String[] arrange(String[] strs) {\n  HashMap<String, List<String>> map = new HashMap<String, List<String>>();\n  for(String oneStr : strs) {\n    String sortedStr = sortString(oneStr);\n    if(map.containsKey(sortedStr))\n      map.get(sortedStr).add(oneStr);\n    else {\n      List<String> temp = new ArrayList<String>();\n      temp.add(oneStr);\n      map.put(sortedStr, temp);\n    }\n    String[] res = new String[strs.length];\n    int pos = 0;\n    for(String oneKey : map.key()) {\n      List<String> oneVal = map.get(oneKey);\n      for(String oneMem : oneVal)\n        res[pos++] = oneMem;\n    }\n    return res;\n  }\n}\n\npublic String sortString(String str) {\n  char[] arr = str.toCharArray();\n  Arrays.sort(arr);\n  return (new String(arr));\n}"
+    },
+    {
+      "type": "text",
+      "data": "<div>11.3 imagine you have a 20GB file with one string on each line. Explain how you // would sort the file</div><div><br></div><div><div>When an interviewer gives a size limit of 20 gigabytes, it should tell you something. In this case, it suggests that they don't want you to bring all the data into memory.</div><div>So what would we do, we just bring part of it into memory and then sort this part, after this sorting, then we will merge all chunks.</div><div>We'll divide the file into chunks which are x megabytes each, where x is the amount of memory we have available. Each chunk is sorted separately and then saved back to the file system.</div><div>Once all the chunks are sorted, we then merge the chunks, one by one. At the end, we have a fully sorted file.</div><div>This algorithm is known as external sort.</div></div><div><br></div><div><ol style=\"margin: 0.3em 0px 0px 3.2em; padding: 0px; list-style-image: none; color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; line-height: 14.9333px; widows: 1;\"><li style=\"background-color: rgb(255, 255, 255); margin-bottom: 0.1em;\">读入每个临时文件（顺串）的前10 MB（ = 100 MB / (9块 + 1)）的数据放入内存，最后的10 MB作为输出缓冲区。（实践中，将输入缓冲适当调小，而适当增大输出缓冲区能获得更好的效果。）</li><li style=\"margin-bottom: 0.1em;\"><span style=\"background-color: rgb(255, 255, 255);\">执行九路</span><a href=\"https://zh.wikipedia.org/w/index.php?title=%E5%BD%92%E5%B9%B6&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"归并（页面不存在）\" style=\"text-decoration: none; color: rgb(165, 88, 88); background-image: none; background-position: initial initial; background-repeat: initial initial;\">归并</a><span style=\"background-color: rgb(255, 255, 255);\">算法，将结果输出到输出缓冲区。一旦输出缓冲区满，将缓冲区中的数据写出至目标文件，清空缓冲区。</span><span style=\"background-color: rgb(254, 250, 0);\">一旦9个输入缓冲区中的一个变空，就从这个缓冲区关联的文件，读入下一个10M数据，除非这个文件已读完。这是“外归并排序”能在主存外完成排序的关键步骤</span><span style=\"background-color: rgb(255, 255, 255);\"> -- 因为“归并算法”(merge algorithm)对每一个大块只是顺序地做一轮访问(进行归并)，每个大块不用完全载入主存。</span></li></ol></div><div><br></div><div><br></div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public int[] searchMatrix(int[][] m, int target) {\n  // 第一个比这个元素大 除掉后面所有的行或者列；\n  // 最后一个元素比这个元素小 那么除去所有之前的行或者列\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public int findMax(List<Pair> pairs) {\n  PriorityQueue<Pair> q = new PriorityQueue<Pair> (pairs.size(), new Comparator<Pair> () {\n    public int compare(Pair p1, Pair p2) {\n      if(p1.hei < p2.hei) return -1;\n      else if(p1.hei == p2.hei) return 0;\n      else return 1;\n    }\n  });\n  for(Pair one : pairs) \n    q.add(one);\n  int[] weights = new int[pairs.size()];\n  int[] dp = new int[pairs.size()];\n  int pos = 0;\n  while(!q.isEmpty()) {\n    Pair temp = q.pop();\n    heights[pos] = temp.hei;\n    weights[pos++] = temp.wei;\n  }\n  int max = 1;\n  for(int i = 0; i < dp.length; i++) {\n    if(i == 0 || weights[i] <= weights[i - 1])\n      dp[i] = 1;\n    else {\n      dp[i] = dp[i - 1] + 1;\n      max = Math.max(dp[i], max);\n    }\n  }\n  return max;\n}\n"
+    },
+    {
+      "type": "text",
+      "data": "给一个stream of integers -- keep rank of each integer<div>1. trivial idea： 用一个array 每次insert 然后insert 但是后面的会很多；</div><div>2. 用binary search tree</div><div>&nbsp; &nbsp; 1. 插进去之后 同时保留在这个node 的左边的node 的数目；</div><div>&nbsp; &nbsp; 2. 那么对于这个node而言 找左边的node 的个数 加起来就好了；parent的左支的数目加上自己的 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style=\"line-height: 1.4;\">左支的数目</span></div>"
+    },
+    {
+      "type": "text",
+      "data": "<h3>Testing</h3><div><ol><li>大方向上面的理解： 对于amazon而言 支付的可靠性显然要比图片的精细程度更重要；</li><li>联系所在的环境： 对于google spreadsheet, it is good to know that if it works well when opening editing and saving but it is also important that the software works well with other parts of the software ecosystem like integrating with Gmail and others</li><li>分类做测试 而不是仅仅随便测试几个部分：结构化的测试不同的部分 给出结构化的办法</li></ol><div><br></div></div><div>例子</div><div><ol><li>测试一个paperclip</li><ol><li>谁会用这个东西 为什么要用</li><li>适用场合有哪些 有哪些限制</li></ol><li>测试一个软件</li><ol><li>主要有两个不同的测试方式： manual testing and automatic testing</li><li>black box or white box : 区别在于 black box 我们只能拿到结果 所以只有input 和 output； 对于white box而言 我们可以进一步看看里面到底是如何进行的；</li></ol><li>测试一个function 比如我们需要测试一个sort 的function&nbsp;</li><ol><li>normal input if the function would generate correct output;</li><li>extreme input like empty array or just one element;</li><li>null or illegall input like an array of floats while we expect integers</li><li>strange input like for this example, we input an array that ha been sorted</li><li>定义expected output</li><li>除了正确的结果之外有可能我们需要测试一些其他的东西 比如说是不是有些不应该被修改的东西被修改了；</li><li>剩下来的就是写test codes</li></ol><li>trouble shooting — 比如说我们遇到了 Chrome crashes</li><ol><li>understand the scenario; — 这个问题有多久了 用户使用的是什么版本&nbsp;<span style=\"line-height: 1.4;\">多久发生一次 是不是有error report</span></li><li><span style=\"line-height: 1.4;\">break down the problem&nbsp;</span>—<span style=\"line-height: 1.4;\">&nbsp;test the whole process step by step and see which step will it crash;</span></li><li>提供用户可以使用的test 说明</li></ol></ol></div>"
+    }
+  ]
+}

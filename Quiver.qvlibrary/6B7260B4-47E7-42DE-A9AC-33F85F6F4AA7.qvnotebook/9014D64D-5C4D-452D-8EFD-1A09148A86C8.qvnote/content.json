@@ -1,0 +1,10 @@
+{
+  "title": "SingleChatClient",
+  "cells": [
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class SingleCHatClient {\n  JTextFiled incoming;\n  JTextField outgoing;\n  PrintWriter writer;\n  Socket socket;\n  \n  public void go() {\n    JFrame frame = new JFrame(\"single chat client\");\n    JPanel mainPanel = new JPanel();\n    \n    outgoing = new JTextField(); // because this would be shared\n    JButton button= new JButton(\"Send\");\n    \n    button.addActionListener(new SendButtonListener());\n    mainPanel.add(outgoing);\n    mainPanel.add(button);\n    \n    // make another thread\n    Thread readThread = new Thread(new IncomingReader());\n    readerThread.start();\n    \n    setNetworking(); \n  }\n  \n  public void setNetworking() {\n    try {\n      Socket socket = new Socket(127.0.0.1, 5000);\n      writer = new PrintWriter(sock.getOutStream());\n      System.out.println(\"Networking established!\");\n    }\n    catch (IOException ex) {\n      System.out.println(\"setup networking failed!\");\n    }\n  }\n  \n  public class SendButtonListener implements ActionListener {\n    public void actionPerformed(ActionEvent ev) {\n      try {\n        writer.println(outgoing.getText());\n        writer.flush(); // get all into buffer and clean buffer\n      }\n    }\n  }\n  \n  // implement runnable\n  public class IncomingReader implements Runnable {\n    public void run() {\n      String message;\n      try {\n        while((message = reader.readLine()) != null) {\n          System.out.println(\"read\" + message);\n          incoming.append(message + '\\n');\n        }\n      }\n      catch (IOException ex) {\n        ex.printStackTrace();\n      }\n    }\n  }\n  \n  public static void main(String[] args) {\n    new SingleChatClient().go();\n  } \n}"
+    }
+  ]
+}

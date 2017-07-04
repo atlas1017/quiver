@@ -1,0 +1,82 @@
+{
+  "title": "九章培训 高频题 操练",
+  "cells": [
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// single number I\npublic int singleNumber(int[] arr) {\n  int res = 0;\n  for(int one : arr)\n    res = res ^ one;\n  return res;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// single number II -- have all others 3 times and this number 1 time\npublic int singleNumber(int[] arr) {\n  int digitVal = 1;\n  int res = 0;\n  for(int i = 0; i < 32; i++) {\n    int count = 0;\n    for(int one : arr) {\n      count += (one & digitVal == ) ? 0 : 1; \n    }\n    count = count % 3;\n    res += count * digitVal;\n    digitVal = digitVal << 1;\n  }\n  return res;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// single number III -- there are 2 numbers that appear once and all others appear twice\npublic int[] singleNumberIII(int[] arr) {\n  int xor = 0;\n  for(int one : arr)\n    xor = xor ^ one;\n  \n  int pivot = 1;\n  while(xor & pivot == 0)\n    pivot = pivot << 1;\n  \n  int[] res = new int[2];\n  for(int one : arr) {\n    if(one & pivot == 0) {\n      res[0] = res[0] & one;\n    }\n    else {\n      res[1] = res[1] & one;\n    }\n  }\n  \n  return res;\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// majority number I -- in the array, there is a number that has count more than half of all\npublic int majorityNumber(int[] arr) {\n  int candidate = 0;\n  int count = 0;\n  for(one : arr) {\n    if(count = 0) {\n      count++;\n      candidate = one;\n    }\n    else {\n      if(one == candidate) {\n        count++;\n      }\n      else {\n        count--;\n      }\n    }\n  }\n  return candidate;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// majority number -- there is at least one number that more than 1 / 3 find this number\npublic int majorityNumberII (int[] arr) {\n  int count1 = 0;\n  int count2 = 0;\n  int candidate = 0;\n  int candidate = 0;\n  for(int one : arr) {\n    if(count1 == 0) {\n      count1++;\n      candidate1 = one;\n    }\n    else if(count2 == 0) {\n      count2++;\n      candidate2 = one;\n    }\n    else {\n      if(one == candidate1) {\n        count1++;\n      }\n      else if(one == candidate2) {\n        count2++;\n      }\n      else {\n        count1--;\n        count2--;\n      }\n    }\n  }\n  \n  count1 = 0;\n  count2 = 0;\n  for(int one : arr) {\n    if(one == candidate1) {\n      count1++\n    }\n    else if(one == candidate2) {\n      count2++;\n    }\n  }\n  \n  return count1 > count2 ? candidate1 ; candidate2;\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// buy and sell stocks\npublic int profit(int[] prices) {\n  int max = 0;\n  int low = Integer.MAX_VALUE;\n  for(int i = 0; i < prices.length; i++) {\n    if(prices[i] < low)\n      low = prices[i];\n    else {\n      int temp = prices[i] - lowPrice;\n      max = Math.max(temp, max);\n    }\n  }\n  return max;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// buy and sell stocks as many times as we can\npublic int maxProfit(int[] prices) {\n  int profit = 0;\n  for(int i = 0; i < prices.length - 1; i++) {\n    int temp = prices[i + 1] - prices[i];\n    profit += Math.max(temp, 0);\n  }\n  return profit;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public int maxProfit(int[] prices) {\n  int[] profitsEnds = new int[prices.length];\n  int[] profitsStarts = new int[prices.length];\n  \n  int max = 0;\n  int low = prices[0];\n  for(int i = 0; i < prices.length; i++) {\n    low = Math.min(low, prices[i]);\n    max = Math.max(prices[i] - low, max);\n    profitsEnds[i] = max;\n  }\n  \n  max = 0;\n  int high = prices[prices.length - 1];\n  for(int i = prices.length - 1; i >= 0; i--) {\n    high = Math.max(high, prices[i]);\n    max = Math.max(high - prices[i], max);\n    profitsStarts[i] = max;\n  }\n  \n  max = 0;\n  for(int i = 0; i < prices.length - 1; i++) {\n    max = Math.max(max, profitsEnds[i] + profitsStarts[i + 1]);\n  }\n  return max;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// subarray I -- find max sum of a subarray\npublic int maxSubarray(ArrayList<Integer> nums) {\n  if(nums == null || nums.size() == 0) {\n    return 0;\n  }\n  \n  int[] sums = new int[nums.size() + 1];\n  int temp = 0;\n  sums[0] = 0;\n  for(int i = 1; i < sums.length; i++) {\n    temp += nums.get(i - 1);\n    sums[i] = temp;\n  }\n  \n  int max = Integer.MIN_VALUE;\n  int low = 0;\n  for(int i = 1; i < sums.length; i++) {\n    low = Math.min(low, sum[i - 1]);\n    max = Math.max(max, sum[i] - low);\n  }\n  \n  return max;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// subarray I -- greedy \npublic int maxSubarray(int[] arr) {\n  if(arr == null || arr.length == 0) {\n    return 0;\n  }\n  \n  int max = Integer.MIN_VALUE;\n  int sum = 0;\n  for(int i = 0; i < arr.length; i++) {\n    sum += arr[i];\n    max = Math.max(max, sum);\n    sum = Math.max(0, sum);\n  }\n  \n  return max;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// subarray I -- DP without extra space\npublic int maxSubarray(int[] arr) {\n  if(arr == null || arr.length == 0) {\n    return 0;\n  }\n  \n  int lowSum = 0;\n  int sum = 0;\n  int max = Integer.MIN_VALUE;\n  for(int i = 0; i < arr.length; i++) {\n    sum += arr[i];\n    max = Math.max(max, sum - lowSum);\n    lowSum = Math.min(sum, lowSum);\n  }\n  \n  return max;\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// subarray II -- split into 2 \npublic int maxSubarrayII(int[] arr) {\n  if(arr == null || arr.length < 2) {\n    if(arr.length == 1) {\n      return arr[0];\n    }\n    return 0;\n  }\n  \n  int[] sumLeft = new int[arr.length];\n  int sum = 0;\n  int minSum = 0;\n  int max = Integer.MIN_VALUE;\n  for(int i = 0; i < arr.length; i++) {\n    sum += arr[i];\n    max = Math.max(max, sum - minSum);\n    sumLeft[i] = max;\n    minSum = Math.min(sum, minSum);\n  }\n  \n  int[] sumRight = new int[arr.length];\n  sum = 0;\n  minSum = 0;\n  max = Integer.MIN_VALUE;\n  for(int i = arr.length - 1; i >= 0; i--) {\n    sum += arr[i];\n    max = Math.max(max, sum - minSum);\n    sumRight[i] = max;\n    minSum = Math.min(sum, minSum);\n  }\n  \n  max = Integer.MIN\n  for(int i = 0; i < arr.length - 1; i++) {\n    max = Math.max(sumLeft[i] + sumRight[i + 1], max);\n  }\n  \n  return max;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// interlaeving negative and postive numbers\n// assume that number of neg is same or fewer 1\n// assume no 0\npublic void interleave(int[] arr) {\n  if(arr == null || arr.length < 2) {\n    return;\n  }\n  \n  int even = 0;\n  int odd = 1;\n  while(even < arr.length && odd < arr.length) {\n    while(even < arr.length && arr[even] > 0) {\n      even += 2;\n    }\n    while(odd < arr.length && arr[odd] < 0) {\n      odd += 2;\n    }\n    if(even < arr.length && odd < arr.length) {\n      int temp = arr[odd];\n      arr[odd] = arr[even];\n      arr[even] = temp;\n    }\n  }\n  \n  return;\n}"
+    }
+  ]
+}

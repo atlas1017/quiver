@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>notes</key>
+	<array>
+		<dict>
+			<key>created_at</key>
+			<integer>1447119282</integer>
+			<key>mtime</key>
+			<integer>1447125030</integer>
+			<key>tags</key>
+			<array/>
+			<key>title</key>
+			<string>SingleChatClient</string>
+			<key>updated_at</key>
+			<integer>1447125030</integer>
+			<key>uuid</key>
+			<string>9014D64D-5C4D-452D-8EFD-1A09148A86C8</string>
+		</dict>
+		<dict>
+			<key>created_at</key>
+			<integer>1447118031</integer>
+			<key>mtime</key>
+			<integer>1447118538</integer>
+			<key>tags</key>
+			<array/>
+			<key>title</key>
+			<string>DailyAdviceServer</string>
+			<key>updated_at</key>
+			<integer>1447118538</integer>
+			<key>uuid</key>
+			<string>CE59FF7E-4EE5-465D-BEC2-71527A68CFAE</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,22 @@
+{
+  "title": "whatsapp campus interview 面经",
+  "cells": [
+    {
+      "type": "text",
+      "data": "在学校的career fair上面聊完天 做了一道BSTsearch的题目 然后拿到了campus interview<div>因为到的比较早 所以在外面和 recruiter 聊了一会儿 聊起来她是从facebook去whatsapp的 面我的工程师也是（facebook intern —&gt; facebook fulltime —&gt; wahtsapp）在facebook做的是network 在whatsapp 做的是server和system 因为知道他们家比较喜欢问server和infrastructure的问题 所以觉得要GG</div><div><br></div><div>开始了之后 一开始看了看我的简历 直接跳过了两个intern 和 其它的project 抓着我写的一门compiler课的project 问了大概十分钟（那个project还是和OS的project一起写的） 问我最喜欢compiler的哪个部分 我说code generator 因为最后能运行 所以kind of magical. 然后又问那最大的困难是个啥 我说因为是一年之前做的叻 所以细节可能记不大清楚了 但是觉得最难的是写regex 的 dependency relation 因为一旦写不好 就有可能需要重头写。 他表示make sense， 那样的情况是common situation</div><div><br></div><div>然后开始做题 跟其他的面试官不大一样的是 给出了题目之后 说take your time, if you got some idea and we can talk 并不是那种一开始就要解释自己思考的过程那种</div><div><br></div><div>1. 给一个2D array， 每一个元素可以是wall 或者是room 要求算出最大的连通的room的大小（里面grid的数目）</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "boolean[][] visited;\nint temp;\npublic int getMax(boolean[][] map) {\n  // for map, true means room and false means walls\n  if(map.length == 0 || map[0].length == 0)\n    return 0;\n  int max = 0;\n  visited = new boolean[map.length][map[0].length]; \n  // missed this line\n  for(int i = 0; i < mao.length; i++) {\n    for(int j = 0; j < map[0].length; i++) {\n      if(map[i][j]) {\n        temp = 0;\n        doBFS(i, j, map);\n        max = Math.max(temp, max);\n      }\n    }\n  }\n  return max;\n}\n// bad name because it should be DFS\nprivate void doBFS(int row, int col, boolean[][] map) {\n  if(row < 0 || row >= map.length || col < 0 || col >= map[0].length || !map[row][col])\n    return;\n  temp++;\n  visited[row][col] = true;\n  doBFS(row + 1, col, map);\n  doBFS(row - 1, col, map);\n  doBFS(row, col - 1, map);\n  doBFS(row, col + 1, map);\n  return;\n}"
+    },
+    {
+      "type": "text",
+      "data": "2. leetcode 原题 buy and sell stock I"
+    },
+    {
+      "type": "text",
+      "data": "3. but and sell stock 但是第一天卖的话 第二天就不能买<div>DP 用来标记上一天持有股票和不持有股票分别能获得的最大利润</div>"
+    }
+  ]
+}

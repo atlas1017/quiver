@@ -1,0 +1,99 @@
+{
+  "title": "LeetCode Binary Search",
+  "cells": [
+    {
+      "type": "text",
+      "data": "search insert position<div><span style=\"background-color: rgb(254, 250, 0);\">return the target position or insertion position — return s directly</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int searchInsert(int[] nums, int target) {\r\n        int s = 0;\r\n        int t = nums.length - 1;\r\n        while(s <= t) {\r\n            int mid = (s + t) / 2;\r\n            if(nums[mid] == target)\r\n                return mid;\r\n            else if(nums[mid] > target) \r\n                t = mid - 1;\r\n            else \r\n                s = mid + 1;\r\n        }\r\n        return s;// 非常的任性\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "search in 2D matrix"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean searchMatrix(int[][] matrix, int target) {\r\n        if(matrix.length == 0 || matrix[0].length == 0)\r\n            return false;\r\n        int row = matrix.length;\r\n        int col = matrix[0].length;\r\n        int s = 0;\r\n        int t = row * col - 1;\r\n        while(s <= t) {\r\n            int mid = (s + t) / 2;\r\n            int r = mid / col;\r\n            int c = mid % col;\r\n            if(target == matrix[r][c])\r\n                return true;\r\n            else if(target > matrix[r][c])\r\n                s = mid + 1;\r\n            else \r\n                t = mid - 1;\r\n        }\r\n        return false;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "search in rotated sorted array"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int search(int[] nums, int target) {\r\n        int s = 0;\r\n        int t = nums.length - 1;\r\n        \r\n        while(s < t - 1) {\r\n            int mid  = (s + t) / 2;\r\n            if(nums[mid] == target)\r\n                return mid;\r\n            if(nums[mid] > nums[s]) {\r\n                // mid on s side\r\n                if(target < nums[mid] && target >= nums[s])\r\n                    t = mid - 1;\r\n                else\r\n                    s = mid + 1;\r\n            }\r\n            else {\r\n                // mid on t side\r\n                if(target > nums[mid] && target <= nums[t])\r\n                    s = mid + 1;\r\n                else \r\n                    t = mid - 1;\r\n            }\r\n        }\r\n        \r\n        if(nums[s] == target)\r\n            return s;\r\n        if(nums[t] == target)\r\n            return t;\r\n        return -1;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "search in rotated sorted array II<div>犯的错： 开始的时候&nbsp;while(s &lt; t &amp;&amp; nums[t] == n2) 包含了等号</div><div>这样有可能会有情况在结束这个之后 s &gt; t 所以可能会有outofbound</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean search(int[] nums, int target) {\r\n        int s = 0;\r\n        int t = nums.length - 1;\r\n        if(target == nums[s] || target == nums[t])\r\n            return true;\r\n        int n1 = nums[s];\r\n        while(s < t && nums[s] == n1)\r\n            s++;\r\n        int n2 = nums[t];\r\n        while(s < t && nums[t] == n2)\r\n            t--;\r\n        while(s < t - 1) {\r\n            int mid = (s + t) / 2;\r\n            if(nums[mid] == target)\r\n                return true;\r\n            if(nums[mid] >= nums[s]) {\r\n                // mid on s side\r\n                if(target >= nums[s] && target < nums[mid])\r\n                    t = mid - 1;\r\n                else\r\n                    s = mid + 1;\r\n            }\r\n            else {\r\n                // mid on t side\r\n                if(target > nums[mid] && target <= nums[t])\r\n                    s = mid + 1;\r\n                else\r\n                    t = mid - 1;\r\n            }\r\n        }\r\n        if(nums[s] == target || nums[t] == target)\r\n            return true;\r\n        return false;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "search for an range"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int[] searchRange(int[] nums, int target) {\r\n        int pos = find(nums, target);\r\n        int[] res = {-1, -1};\r\n        if(pos < 0) return res;\r\n        res[1] = pos;\r\n        while(res[1] < nums.length - 1 && nums[res[1] + 1] == nums[pos])\r\n            res[1]++;\r\n        res[0] = pos;\r\n        while(res[0] > 0 && nums[res[0] - 1] == nums[pos])\r\n            res[0]--;\r\n        return res;\r\n    }\r\n    public int find(int[] nums, int target)\r\n    {\r\n        int s = 0;\r\n        int t = nums.length - 1;\r\n        while(s <= t)\r\n        {\r\n            int mid = (s+t)/2;\r\n            if(nums[mid] == target)\r\n                return mid;\r\n            else if(nums[mid] < target)\r\n                s = mid + 1;\r\n            else\r\n                t = mid - 1;\r\n        }\r\n        return -1;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "3Sum<div>主要的点在于如何排除重复</div><div>1. 在for loop 里面每次如果发现和之前一样 continue；</div><div>2. <span style=\"background-color: rgb(254, 250, 0);\">在发现一个结果之后 两边都要update；</span></div><div>3. update的用do while；</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "import java.util.List;\n\npublic class Solution {\n    public List<List<Integer>> threeSum(int[] num) {\n        List<List<Integer>> res = new ArrayList<List<Integer>>();\n        Arrays.sort(num);\n        for(int i = 0; i < num.length - 2; i++) {\n            if(i > 0 && num[i] == num[i - 1])\n                continue;\n            int s = i + 1;\n            int t = num.length - 1;\n            while(s < t) {\n                int tempSum = num[s] + num[t] + num[i];\n                if(tempSum == 0) {\n                    List<Integer> one = new ArrayList<Integer>();\n                    one.add(num[i]);\n                    one.add(num[s]);\n                    one.add(num[t]);\n                    res.add(one);\n                    do{t--;} while(s < t && num[t] == num[t + 1]);\n                    do{s++;} while(s < t && num[s] == num[s - 1]);\n                } \n                else if(tempSum > 0)\n                    do{t--;} while(s < t && num[t] == num[t + 1]);\n                else \n                    do{s++;} while(s < t && num[s] == num[s - 1]);\n            }\n        }\n        return res;\n    }\n}"
+    },
+    {
+      "type": "text",
+      "data": "3Sum Closest"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int threeSumClosest(int[] nums, int target){\r\n        int close = nums[0] + nums[1] + nums[2];\r\n        Arrays.sort(nums);\r\n        for(int i = 0; i < nums.length - 2; i++) {\r\n            int s = i + 1;\r\n            int t = nums.length - 1;\r\n            while(s < t) {\r\n                int tempSum = nums[i] + nums[s] + nums[t];\r\n                if(tempSum == target)\r\n                    return target; // no need to update\r\n                else if(tempSum < target) {\r\n                    if(target - tempSum < Math.abs(close - target))\r\n                        close = tempSum;\r\n                    do{s++;} while(s < t && nums[s] == nums[s - 1]);\r\n                }\r\n                else {\r\n                    if(tempSum - target < Math.abs(close - target))\r\n                        close = tempSum;\r\n                    do{t--;} while(s < t && nums[t] == nums[t + 1]);\r\n                }\r\n            }\r\n        }\r\n        return close;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "4Sum<div>多套一层 ：<span style=\"background-color: rgb(254, 250, 0);\"> i 和 j 如何避免重复值得一看</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<List<Integer>> fourSum(int[] nums, int target) {\r\n        Arrays.sort(nums);\r\n        List<List<Integer>> res = new ArrayList<List<Integer>>();\r\n        for(int i = 0; i < nums.length - 3; i++) {\r\n            if(i > 0 && nums[i] == nums[i - 1])\r\n                continue;\r\n            for(int j = i + 1; j < nums.length - 2; j++) {\r\n                if(j > i + 1 && nums[j] == nums[j - 1])\r\n                    continue;\r\n                int s = j + 1;\r\n                int t = nums.length - 1;\r\n                while(s < t) {\r\n                    int temp = nums[i] + nums[j] + nums[s] + nums[t];\r\n                    if(temp == target) {\r\n                        List<Integer> one = new ArrayList<Integer>();\r\n                        one.add(nums[i]);\r\n                        one.add(nums[j]);\r\n                        one.add(nums[s]);\r\n                        one.add(nums[t]);\r\n                        res.add(one);\r\n                        \r\n                        do{s++;} while(s < t && nums[s] == nums[s - 1]);\r\n                        do{t--;} while(s < t && nums[t] == nums[t + 1]);\r\n                    }\r\n                    else if(temp > target)\r\n                        do{t--;} while(s < t && nums[t] == nums[t + 1]);\r\n                    else\r\n                        do{s++;} while(s < t && nums[s] == nums[s - 1]);\r\n                }\r\n            }\r\n        }\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "Sqrt(x)&nbsp;<div>1. 为了避免overflow 加上offset的一半 用除法不用乘法</div><div>2 &nbsp;用除法 就要避免 divided by 0</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int mySqrt(int x) {\r\n        if(x == 0)  return 0;\r\n        int s = 1;\r\n        int t = (x / 2) + 1;\r\n        while(s <= t) {\r\n            int mid = s + (t - s) / 2; // avoid overflow\r\n            if(x / mid >= mid && x / (mid + 1) < mid + 1)\r\n                return mid;\r\n            else if(x / mid < mid) \r\n                t = mid - 1;\r\n            else \r\n                s = mid + 1;\r\n        }\r\n        return -1;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "Median of two sorted arrays<div>递归需要处理base situation</div><div><span style=\"background-color: rgb(254, 250, 0);\">1. if 短的长度为零</span></div><div><span style=\"background-color: rgb(254, 250, 0);\">2. if 我们要找第一个</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n\tpublic double findMedianSortedArrays (int[] n1, int[] n2) {\r\n\t    int a = (n1.length + n2.length + 1) / 2;\r\n\t    int b = (n1.length + n2.length + 2) / 2;\r\n\t    return (0.0 + help(n1, n2, 0, 0, a) + help(n1, n2, 0, 0, b)) / 2;\r\n\t}\r\n\t\r\n\tpublic int help(int[] n1, int[] n2, int i1, int i2, int k) {\r\n\t    if(n1.length - i1 > n2.length - i2)\r\n\t        return help(n2, n1, i2, i1, k);\r\n\t    if(n1.length == i1)\r\n\t        return n2[i2 + k - 1];\r\n\t    if(k == 1)\r\n\t        return Math.min(n1[i1], n2[i2]);\r\n\t    int off = Math.min(k / 2, n1.length - i1);\r\n\t    int left = k - off;\r\n\t    if(n1[i1 + off - 1] == n2[i2 + left - 1])\r\n\t        return n1[i1 + off - 1];\r\n\t    else if(n1[i1 + off - 1] < n2[i2 + left - 1])\r\n\t        return help(n1, n2, i1 + off, i2, k - off);\r\n\t    else \r\n\t        return help(n1, n2, i1, i2 + left, k - left);\r\n\t}\r\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

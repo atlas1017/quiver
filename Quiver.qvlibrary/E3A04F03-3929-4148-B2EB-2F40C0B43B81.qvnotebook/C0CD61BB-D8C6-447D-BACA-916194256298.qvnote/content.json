@@ -1,0 +1,22 @@
+{
+  "title": "C++的继承",
+  "cells": [
+    {
+      "type": "text",
+      "data": "概述：<div>继承是一个很重要的C++的概念 可以帮助避免冗余的代码 使得代码的维护更容易</div><div>A derived class inherits from a base class</div><div>满足一种IS-A 的关系</div>"
+    },
+    {
+      "type": "text",
+      "data": "class derived_class : access_spedifier base_class<div>其中access-speciifer 对于class里面的fileds和inheritance type来说default value都是private</div>"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "using namespace std;\nclass A {\n    public:\n        int _a;\n        int _b;\n        int _c;\n        A(const int& a, const int& b) {\n            _a = -2;\n            _b = -2;\n            _c = 0;\n        }\n};\nint main() {\n    A cc;\n    cout << \"done\" << endl;\n\treturn 0;\n}\n// not okay because there is no default constructor for A\n// fix : add default constructor for A\n\n\n\nclass A {\n    protected:\n        int _a;\n        int _b;\n    public:\n        A(const int& a, const int& b) {\n            _a = a;\n            _b = b;\n        }\n};\n\nclass B : protected A {\n    public:\n    B(const int& a, const int& b) {\n        _a = a;\n        _b = b;\n    } \n};\n// will not compile because we need a default constructor for A\n// fix: make a default method for A::A()\n\n\nclass A {\n    protected:\n        int _a;\n        int _b;\n    public:\n        int _c;\n        A(const int& a, const int& b) {\n            _a = a;\n            _b = b;\n            _c = 0;\n        }\n};\n\nclass B : protected A {\n    public:\n    B(const int& a, const int& b): _a(a), _b(b) {} \n};\n\n// not okay because in compilation time, system does not know that\n// the class has a field called _a or _b\n// fix:call A(a, b) constructor instead of just do assignment"
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

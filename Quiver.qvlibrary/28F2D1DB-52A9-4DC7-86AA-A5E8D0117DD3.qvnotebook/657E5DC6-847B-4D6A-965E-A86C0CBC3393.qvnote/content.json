@@ -1,0 +1,59 @@
+{
+  "title": "常见的需要记忆的语法块",
+  "cells": [
+    {
+      "type": "text",
+      "data": "PriorityQueue"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "PriorityQueue<ListNode> q = new PriorityQueue<ListNode> (len, new Comparator<ListNode>() {\n  public int compare(ListNode a, ListNode b) {\n    if(a.val < b.val) return 1;\n    else if(a.val == b.val) return 0;\n    else return -1;\n  }\n});\n// peek() poll() \n// offer() add() no diff\n// iterator()"
+    },
+    {
+      "type": "text",
+      "data": "Iterator"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "ArrayList al = new ArrayList();\nal.add(\"C\");\nal.add(\"A\");\nal.add(\"E\");\nal.add(\"B\");\nal.add(\"D\");\nal.add(\"F\");\n\n// Use iterator to display contents of al\nIterator itr = al.iterator();\nwhile(itr.hasNext()) {\n   Object element = itr.next();\n   System.out.print(element + \" \");\n}"
+    },
+    {
+      "type": "text",
+      "data": "string to int"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "int foo = Integer.parseInt(\"1234\");"
+    },
+    {
+      "type": "text",
+      "data": "String compareTo"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "String a = \"a\";\nString b = \"b\";\nint m = a.compareTo(b);"
+    },
+    {
+      "type": "text",
+      "data": "java inoput from file and split"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "      File inFile = new File (\"input.txt\");\n    \tScanner sc = new Scanner (inFile);\n    \tboolean first = true;\n    \twhile (sc.hasNextLine()) {\n      \t\tString line = sc.nextLine();\n      \t\tString[] strs = line.split(\" \", -1);\n    \t}"
+    },
+    {
+      "type": "text",
+      "data": "throw exception in Java<div><span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 19.5px; widows: 1; background-color: rgb(255, 255, 255);\">NullPointerException</span><br></div><div><span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 19.5px; widows: 1; background-color: rgb(255, 255, 255);\">IOException</span><span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 19.5px; widows: 1; background-color: rgb(255, 255, 255);\"><br></span></div><div><span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 19.5px; widows: 1; background-color: rgb(255, 255, 255);\">IllegalArgumentException</span><span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 19.5px; widows: 1; background-color: rgb(255, 255, 255);\"><br></span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "throw new IllegalArgumentException(\"cannot find qualified element\");"
+    }
+  ]
+}

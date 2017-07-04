@@ -1,0 +1,148 @@
+{
+  "title": "LeetCode DFS",
+  "cells": [
+    {
+      "type": "text",
+      "data": "Combinations"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<List<Integer>> combine(int n, int k) {\r\n        List<List<Integer>> res = new ArrayList<List<Integer>>();\r\n        List<Integer> one = new ArrayList<Integer>();\r\n        helpAdding(res, one, 1, n, k);\r\n        return res;\r\n    }\r\n    \r\n    private void helpAdding(List<List<Integer>> res, List<Integer> one, int start, int end, int num) {\r\n        if(one.size() == num) {\r\n            res.add(new ArrayList<Integer>(one));\r\n            return;\r\n        }\r\n        for(int i = start; i <= end; i++) {\r\n            one.add(i);\r\n            helpAdding(res, one, i + 1, end, num);\r\n            one.remove(one.size() - 1);\r\n        }\r\n        return;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "convert sorted array to binary search tree"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public TreeNode sortedArrayToBST(int[] nums) {\r\n        return help(nums, 0, nums.length - 1);\r\n    }\r\n    \r\n    private TreeNode help(int[] nums, int start, int end) {\r\n        if(start > end)\r\n            return null;\r\n        int mid = (start + end) / 2;\r\n        TreeNode one = new TreeNode(nums[mid]);\r\n        one.left = help(nums, start, mid - 1);\r\n        one.right = help(nums, mid + 1, end);\r\n        return one;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "convert sorted list to binary search tree<div><span style=\"background-color: rgb(254, 250, 0);\">很容易出错的一个点：</span></div><div><span style=\"background-color: rgb(254, 250, 0);\">如果是String List&nbsp;—&gt; String[] &nbsp;直接 list.toArray(new String[list.size()])</span></div><div><span style=\"background-color: rgb(254, 250, 0);\">但是对于Intege没有built-in feature for his 需要手动添加</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public TreeNode sortedListToBST(ListNode head) {\r\n        List<Integer> nums = new ArrayList<Integer>();\r\n        ListNode cur = head;\r\n        while(cur != null) {\r\n            nums.add(cur.val);\r\n            cur = cur.next;\r\n        }\r\n        int[] arr = new int[nums.size()];\r\n        for(int i = 0; i < nums.size(); i++)\r\n            arr[i] = nums.get(i);\r\n        return help(arr, 0, arr.length - 1);\r\n    }\r\n    private TreeNode help(int[] nums, int start, int end) {\r\n        if(start > end)\r\n            return null;\r\n        int mid = (start + end) / 2;\r\n        TreeNode one = new TreeNode(nums[mid]);\r\n        one.left = help(nums, start, mid - 1);\r\n        one.right = help(nums, mid + 1, end);\r\n        return one;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "subsets"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<List<Integer>> subsets(int[] nums) {\r\n        Arrays.sort(nums);\r\n        List<List<Integer>> res = new ArrayList<List<Integer>>();\r\n        List<Integer> one = new ArrayList<Integer>();\r\n        helpAdding(res, one, 0, nums);\r\n        return res;\r\n    }\r\n    private void helpAdding(List<List<Integer>> res, List<Integer> one, int start, int[] nums) {\r\n        res.add(new ArrayList<Integer>(one));\r\n        int pos = start;\r\n        while(pos < nums.length) {\r\n            one.add(nums[pos]);\r\n            pos++;\r\n            helpAdding(res, one, pos, nums);\r\n            one.remove(one.size() - 1);\r\n        }\r\n        return;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "<span style=\"background-color: rgb(254, 250, 0);\">subsets II</span><div>我们希望后面duplicate不要单独开始一个新的list（因为这些list会被前面的cover） 但是我们希望他们也能被加进来</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<List<Integer>> subsetsWithDup(int[] nums) {\r\n        Arrays.sort(nums);\r\n        List<List<Integer>> res = new ArrayList<List<Integer>>();\r\n        List<Integer> one = new ArrayList<Integer>();\r\n        helpAdding(res, one, 0, nums);\r\n        return res;\r\n    }\r\n    private void helpAdding(List<List<Integer>> res, List<Integer> one, int start, int[] nums) {\r\n        res.add(new ArrayList<Integer>(one));\r\n        int pos = start;\r\n        while(pos < nums.length) {\r\n            one.add(nums[pos]);\r\n            helpAdding(res, one, pos + 1, nums);\r\n            one.remove(one.size() - 1);\r\n            do{pos++;} while(pos < nums.length && nums[pos] == nums[pos - 1]);\r\n        }\r\n        return;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "<span style=\"background-color: rgb(254, 250, 0);\">word search — 灰常经典的DFS题 implementation 题</span><div>分配任务&nbsp;</div><div>1.事实上可以从任意位置开始搜索 但是为了搜索效率 我们决定先缩小范围 从第一个匹配了之后开始 但是并没有在这儿做什么实际操作 — 知识provide better inputs</div><div>2.开始搜索之后 一开始的部分是重复的 — 需要像下一步走（String and board）</div><div>3.下一步之前先mark visited DFS 完了之后mark as unvisited</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\n    boolean[][] visited;\n    char[][] b;\n    public boolean exist(char[][] board, String word) {\n        if(board.length == 0 || board[0].length == 0)\n            return false;\n        visited = new boolean[board.length][board[0].length];\n        b = board;\n        for(int i = 0; i < board.length; i++) {\n            for(int j = 0; j < board[0].length; j++) {\n                if(board[i][j] == word.charAt(0)) {\n                    if(help(i, j, 0, word))\n                        return true;\n                }\n            }\n        }\n        return false;\n    }\n    \n    private boolean help(int row, int col, int pos, String word) {\n        if(pos == word.length()) return true;\n        if(row < 0 || row >= b.length || col < 0 || col >= b[0].length) return false;\n        if(visited[row][col] == true || b[row][col] != word.charAt(pos)) return false;\n        visited[row][col] = true;\n        boolean res = help(row + 1, col, pos + 1, word) || help(row, col + 1, pos + 1, word)\n                    ||help(row - 1, col, pos + 1, word) || help(row, col - 1, pos + 1, word);\n        visited[row][col] = false;\n        return res;\n    }\n}"
+    },
+    {
+      "type": "text",
+      "data": "Unique Binary Search Tree"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<TreeNode> generateTrees(int n) {\r\n        return help(1, n);\r\n    }\r\n    \r\n    private List<TreeNode> help(int start, int end) {\r\n        List<TreeNode> res = new ArrayList<TreeNode>();\r\n        if(start > end) {\r\n            res.add(null);\r\n            return res;\r\n        }\r\n        for(int mid = start; mid <= end; mid++) {\r\n            List<TreeNode> lefts = help(start, mid - 1);\r\n\t\t\tList<TreeNode> rights = help(mid + 1, end);\r\n\t\t\tfor(TreeNode left : lefts) {\r\n\t\t\t     for(TreeNode right : rights) {\r\n\t\t\t         TreeNode one = new TreeNode(mid);\r\n\t\t\t         one.left = left;\r\n\t\t\t         one.right = right;\r\n\t\t\t         res.add(one);\r\n\t\t\t         }\r\n\t\t\t      }\r\n        }\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "path sum &amp; path sum II<div>II 犯的错 有借有还 <span style=\"background-color: rgb(254, 250, 0);\">不论在哪一步 如果对one add 都要做完当前操作之后remove</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean hasPathSum(TreeNode root, int sum) {\r\n        if(root == null) return false;\r\n        if(root.left == null && root.right == null && root.val == sum) return true;\r\n        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);\r\n    }\r\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<List<Integer>> pathSum(TreeNode root, int sum) {\r\n        List<List<Integer>> res = new ArrayList<List<Integer>>();\r\n        List<Integer> one = new ArrayList<Integer>();\r\n        helpAdding(root, sum, one, res);\r\n        return res;\r\n    }\r\n    private void helpAdding(TreeNode root, int sum, List<Integer> one, List<List<Integer>> res) {\r\n        if(root == null) return;\r\n        if(root.left == null && root.right == null) {\r\n            if(root.val == sum) {\r\n                one.add(root.val);\r\n                res.add(new ArrayList<Integer>(one));\r\n                one.remove(one.size() - 1);\r\n                return;\r\n            }\r\n        }\r\n        else {\r\n            one.add(root.val);\r\n            helpAdding(root.left, sum - root.val, one, res);\r\n            one.remove(one.size() - 1);\r\n            \r\n            one.add(root.val);\r\n            helpAdding(root.right, sum - root.val, one, res);\r\n            one.remove(one.size() - 1);\r\n        }\r\n        return;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "scramble string"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean isScramble(String s1, String s2) {\r\n        if(s1.length() != s2.length())\r\n            return false;\r\n        if(s1.equals(s2))   \r\n            return true;\r\n        char[] arr1 = s1.toCharArray();\r\n        char[] arr2 = s2.toCharArray();\r\n        int[] count = new int[128];\r\n        \r\n        for(char one : arr1)\r\n            count[one]++;\r\n        for(char one : arr2) {\r\n            count[one]--;\r\n            if(count[one] < 0)\r\n                return false;\r\n        }\r\n        \r\n        for(int i = 1; i < arr1.length; i++) {\r\n            if(isScramble(s1.substring(0, i), s2.substring(0, i)) \r\n                && isScramble(s1.substring(i), s2.substring(i)))\r\n                return true;\r\n            if(isScramble(s1.substring(0, i), s2.substring(arr1.length - i)) \r\n            && isScramble(s1.substring(i), s2.substring(0, arr1.length - i)))\r\n                return true;\r\n        }\r\n        return false;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "combination sum I &amp;&amp; II"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\r\n        Arrays.sort(candidates);\r\n        List<Integer> one = new ArrayList<Integer>();\r\n        List<List<Integer>> res = new ArrayList<List<Integer>>();\r\n        \r\n        helpAdding(res, one, target, candidates, 0);\r\n        return res;\r\n    }\r\n    \r\n    public void helpAdding(List<List<Integer>> res, List<Integer> one, int target, int[] candidates, int start) {\r\n        if(target == 0) {\r\n            List<Integer> copy = new ArrayList<Integer> (one);\r\n            res.add(copy);\r\n            return;\r\n        }\r\n        for(int i = start; i < candidates.length; i++) {\r\n            if(i > start && candidates[i] == candidates[i - 1])\r\n                continue;\r\n            if(candidates[i] <= target) {\r\n                one.add(candidates[i]);\r\n                helpAdding(res, one, target - candidates[i], candidates, i);\r\n                one.remove(one.size() - 1);\r\n            }\r\n        }\r\n        return;\r\n    }\r\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\r\n        Arrays.sort(candidates);\r\n        List<Integer> one = new ArrayList<Integer>();\r\n        List<List<Integer>> res = new ArrayList<List<Integer>>();\r\n        \r\n        helpAdding(res, one, target, candidates, 0);\r\n        return res;\r\n    }\r\n    \r\n    public void helpAdding(List<List<Integer>> res, List<Integer> one, int target, int[] candidates, int start) {\r\n        if(target == 0) {\r\n            List<Integer> copy = new ArrayList<Integer> (one);\r\n            res.add(copy);\r\n            return;\r\n        }\r\n        for(int i = start; i < candidates.length; i++) {\r\n            if(i > start && candidates[i] == candidates[i - 1])\r\n                continue;\r\n            if(candidates[i] <= target) {\r\n                one.add(candidates[i]);\r\n                helpAdding(res, one, target - candidates[i], candidates, i + 1);\r\n                one.remove(one.size() - 1);\r\n            }\r\n        }\r\n        return;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "sodoku solver"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public void solveSudoku(char[][] board) {\r\n\t\tboolean[][] row = new boolean[9][9];\r\n\t\tboolean[][] col = new boolean[9][9];\r\n\t\tboolean[][] block = new boolean[9][9];\r\n\r\n\t\tfor(int i = 0; i < 9; i++) {\r\n\t\t\tfor(int j = 0; j < 9; j++) {\r\n\t\t\t\tif(board[i][j] == '.') continue;\r\n\t\t\t\tint num = board[i][j] - '1';\r\n\t\t\t\trow[i][num] = true;\r\n\t\t\t\tcol[j][num] = true;\r\n\t\t\t\tblock[(i / 3) * 3 + j / 3][num] = true;\r\n\t\t\t}\r\n\t\t}\r\n\t\thelp(board, row, col, block, 0, 0);\r\n\t\treturn;\r\n\t}\r\n\r\n\tpublic boolean help(char[][] board, boolean[][] row, boolean[][] col, boolean[][] block, int i, int j) {\r\n\t\tif(i == 9)\treturn true;\r\n\t\tif(j == 9)\treturn help(board, row, col, block, i + 1, 0);\r\n\t\tif(board[i][j] != '.') return help(board, row, col, block, i, j + 1);\r\n\t\tfor(int k = 0; k < 9; k++) {\r\n\t\t\tif(row[i][k] || col[j][k] || block[(i / 3) * 3 + j / 3][k]) continue;\r\n\t\t\tboard[i][j] = (char)(k + '1');\r\n\t\t\trow[i][k] = true;\r\n\t\t\tcol[j][k] = true;\r\n\t\t\tblock[(i / 3) * 3 + j / 3][k] = true;\r\n\t\t\tif(help(board, row, col, block, i, j + 1))\treturn true;\r\n\t\t\tboard[i][j] = '.';\r\n\t\t\trow[i][k] = false;\r\n\t\t\tcol[j][k] = false;\r\n\t\t\tblock[(i / 3) * 3 + j / 3][k] = false;\r\n\t\t} \r\n\t\treturn false;\r\n\t}\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "sudoku solver<div>应该区别 fill 或者在原来的上面操作 然后直接返回；</div><div>还是通过之前的数据结构得到一组或者多组解 然后原来的数据结构不发生变化；</div><div><br></div><div>本题属于第一种 所以在help函数的时候 应该设定一个terminating condition 也就是说找到了就停止 不再返回 不行的话再返回；&nbsp;</div><div><span style=\"background-color: rgb(254, 250, 0);\">backtracking的不同 一种是失败了就返回 另外一种是拿到了结果 返回去找别的结果</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    boolean[][] rows;\r\n    boolean[][] cols;\r\n    boolean[][] blocks;\r\n    public void solveSudoku(char[][] board) {\r\n\t    rows = new boolean[9][9]; // first is no. of row and second is filled number\r\n\t\tcols = new boolean[9][9];\r\n\t\tblocks = new boolean[9][9];\r\n\t\t\r\n\t\tfor(int i = 0; i < 9; i++) {\r\n\t\t    for(int j = 0; j < 9; j++) {\r\n\t\t        if(board[i][j] == '.') continue;\r\n\t\t        int tempNum = board[i][j] - '1';\r\n\t\t        rows[i][tempNum] = true;\r\n\t\t        cols[j][tempNum] = true;\r\n\t\t        blocks[(i / 3) * 3 + j / 3][tempNum] = true;\r\n\t\t    }\r\n\t\t}\r\n\t\thelp(0, 0, board);\r\n\t\treturn;\r\n\t}\r\n\t\r\n\tprivate boolean help(int row, int col, char[][] board) {\r\n\t    if(row == 9) return true;\r\n\t    if(col == 9) \r\n\t        return help(row + 1, 0, board);\r\n\t    if(board[row][col] != '.')\r\n\t        return help(row, col + 1, board);\r\n\t    for(int num = 0; num < 9; num++) {\r\n\t        if(rows[row][num] == true || cols[col][num] == true || blocks[row/3 *3 + col/3][num] == true)\r\n\t            continue;\r\n\t        board[row][col] = (char)(num + '1');\r\n\t        rows[row][num] = true;\r\n\t        cols[col][num] = true;\r\n\t        blocks[(row/3) *3 + col/3][num] = true;\r\n\t        if(help(row, col + 1, board)) return true;\r\n\t        board[row][col] = '.';\r\n\t        rows[row][num] = false;\r\n\t        cols[col][num] = false;\r\n\t        blocks[(row/3) *3 + col/3][num] = false;\r\n\t    }\r\n\t    return false;\r\n\t}\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "binary tree maximum path sum<div>对于subtree 做两件事情</div><div><span style=\"background-color: rgb(254, 250, 0);\">1. 找出这个subtree和上面可以结合的最大值 作为返回值；</span></div><div><span style=\"background-color: rgb(254, 250, 0);\">2. update max max 可以是和上面结合的 也可以不是（在一边不包含mid 或者两边都有）</span></div><div><span style=\"background-color: rgb(254, 250, 0);\">最后返回的是max</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "/**\r\n * Definition for a binary tree node.\r\n * public class TreeNode {\r\n *     int val;\r\n *     TreeNode left;\r\n *     TreeNode right;\r\n *     TreeNode(int x) { val = x; }\r\n * }\r\n */\r\npublic class Solution {\r\n    int max;\r\n    public int maxPathSum(TreeNode root) {\r\n        max = Integer.MIN_VALUE;\r\n        getMax(root);\r\n        return max;\r\n    }\r\n    \r\n    private int getMax(TreeNode root) {\r\n        if(root == null) return 0;\r\n        int left = getMax(root.left);\r\n        int right = getMax(root.right);\r\n        int larger = Math.max(left, right);\r\n        int res = larger > 0 ? root.val + larger : root.val;\r\n        max = Math.max(max, Math.max(root.val + left + right, res));\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

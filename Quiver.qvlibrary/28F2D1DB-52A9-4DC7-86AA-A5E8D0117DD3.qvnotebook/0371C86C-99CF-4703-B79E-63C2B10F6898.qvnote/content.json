@@ -1,0 +1,86 @@
+{
+  "title": "LeetCode Pointer",
+  "cells": [
+    {
+      "type": "text",
+      "data": "Container with Most Water"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n   public static int maxArea(int[] height) {\r\n        if(height == null || height.length < 2)\r\n            return 0;\r\n        int max = 0;\r\n        int p = 0;\r\n        int q = height.length - 1;\r\n        while(p < q) {\r\n            if(height[p] > height[q]) {\r\n                max = Math.max(height[q] * (q - p), max);\r\n                q--;\r\n            }\r\n            else {\r\n                max = Math.max(height[p] * (q - p), max);\r\n                p++;\r\n            }\r\n        }\r\n        return max;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "remove duplicates from sorted array"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int removeDuplicates(int[] nums) {\r\n        if(nums == null || nums.length == 0)\r\n            return 0;\r\n        int p = 0;\r\n        int q = 0;\r\n        while(q < nums.length) {\r\n            int temp = nums[p];\r\n            while(q < nums.length && nums[q] == temp)\r\n                q++;\r\n            if(q < nums.length)\r\n                nums[++p] = nums[q];\r\n        }\r\n        return p + 1;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "remove duplicates from sorted array II<br>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\npublic int removeDuplicates(int[] nums) {\r\n        if(nums.length < 3)\r\n            return nums.length;\r\n        int p = -1;\r\n        int q = 0;\r\n        while(q < nums.length) {\r\n            if(q + 1 == nums.length || nums[q + 1] != nums[q])\r\n                nums[++p] = nums[q++];\r\n            else {\r\n                int temp = nums[q];\r\n                nums[++p] = temp;\r\n                nums[++p] = temp;\r\n                while(q < nums.length && nums[q] == temp)\r\n                    q++;\r\n            }\r\n        }\r\n        return p + 1;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "remove element"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int removeElement(int[] nums, int val) {\r\n        int p = -1;\r\n        int q = 0;\r\n        while(q < nums.length) {\r\n            if(nums[q] == val)\r\n                q++;\r\n            else\r\n                nums[++p] = nums[q++];\r\n        }\r\n        return p + 1;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "sort colors<div>— 第一个是quickSort 的思想</div><div>— 第二个&nbsp;<span style=\"color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; line-height: 14.4px; widows: 1; background-color: rgb(255, 255, 255);\">counting sort的核心想法：对于某个数值，知道有多少个数比它小，即可知道它排序后的位置</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public void sortColors(int[] nums) {\r\n        int p = 0;\r\n        int q = nums.length - 1;\r\n        while(p < q) {\r\n            while(p < q && nums[p] == 0) p++;\r\n            while(p < q && nums[q] > 0) q--;\r\n            swap(nums, p, q);\r\n        }\r\n        q = nums.length - 1;\r\n        while(p < q) {\r\n            while(p < q && nums[p] < 2) p++;\r\n            while(p < q && nums[q] == 2) q--;\r\n            swap(nums, p, q);\r\n        }\r\n        return;\r\n    }\r\n    public void swap(int[]nums, int p, int q) {\r\n        int temp = nums[p];\r\n        nums[p] = nums[q];\r\n        nums[q] = temp;\r\n        return;\r\n    }\r\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public void sortColors(int[] nums){\r\n        int red = 0;\r\n        int white = 0;\r\n        int blue = 0;\r\n        for(int i : nums) {\r\n            if(i == 0) red++;\r\n            else if(i == 1) white++;\r\n            else blue++;\r\n        }\r\n        int p = 0;\r\n        while(red-- > 0)\r\n            nums[p++] = 0;\r\n        while(white-- > 0)\r\n            nums[p++] = 1;\r\n        while(blue-- > 0)\r\n            nums[p++] = 2;\r\n        return;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "substring with concatenation of all words"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<Integer> findSubstring(String s, String[] words) {\r\n        HashMap<String, Integer> map = new HashMap<String, Integer>();\r\n        int len = words.length * words[0].length();\r\n        List<Integer> res = new ArrayList<Integer>();\r\n        for(String one : words) {\r\n            if(map.containsKey(one)) \r\n                map.put(one, map.get(one) + 1);\r\n            else\r\n                map.put(one, 1);\r\n        }\r\n        String cur = \"\";\r\n        String next = \"\";\r\n        for(int i = 0; i < s.length() - len + 1; i++) {\r\n            next = s.substring(i, i + len);\r\n            if(i > 0 && res.contains(i - 1) && next.equals(cur))\r\n                res.add(i);\r\n            else if(isValid(map, next, words[0].length()))\r\n                res.add(i);\r\n            cur = next;\r\n        }\r\n        return res;\r\n    }\r\n    \r\n    private boolean isValid(HashMap<String, Integer> map, String s, int len) {\r\n        HashMap<String, Integer> m = new HashMap<String, Integer>(map);\r\n        for(int i = 0; i < s.length(); i += len) {\r\n            String one = s.substring(i, i + len);\r\n            if(!m.containsKey(one))\r\n                return false;\r\n            else if(m.get(one) == 1)\r\n                m.remove(one);\r\n            else \r\n                m.put(one, m.get(one) - 1);\r\n        }\r\n        return true;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "longest substring without repeating character<div>犯的错 — 在包含这个element的时候 应该先清除掉之前所有的 然后再放进去</div><div>map.put(temp, i);<br></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int lengthOfLongestSubstring(String s) {\r\n        if(s.length() < 2)\r\n            return s.length();\r\n        HashMap<Character, Integer> map = new HashMap<Character, Integer>();\r\n        int start = 0;\r\n        char[] arr = s.toCharArray();\r\n        int max = 1;\r\n        for(int i = 0; i < arr.length; i++) {\r\n            char temp = arr[i];\r\n            if(map.containsKey(temp)) {\r\n                int index = map.get(temp);\r\n                while(start <= index)\r\n                    map.remove(arr[start++]);\r\n                map.put(temp, i);\r\n            }\r\n            else {\r\n                map.put(temp, i);\r\n                max = Math.max(i - start + 1, max);\r\n            }\r\n        }\r\n        return max;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "Insert Interval"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {\r\n        if(intervals.size() == 0) {\r\n            intervals.add(newInterval);\r\n            return intervals;\r\n        }\r\n        List<Interval> overlaps = new ArrayList<Interval>();\r\n        for(Interval one : intervals) \r\n            if(overlap(one, newInterval)) overlaps.add(one);\r\n        for(Interval one : overlaps)\r\n            intervals.remove(one);\r\n        Interval merged = merge(overlaps, newInterval);\r\n        int pos = 0;\r\n        while(pos < intervals.size() && intervals.get(pos).start < merged.start)\r\n            pos++;\r\n        intervals.add(pos, merged);\r\n        return intervals;\r\n    }\r\n    \r\n    public boolean overlap(Interval a, Interval b) {\r\n        return (a.start <= b.end && b.start <= a.end);\r\n    }\r\n    \r\n    public Interval merge(List<Interval> overlaps, Interval one) {\r\n        for(Interval temp : overlaps) {\r\n            one.end = Math.max(temp.end, one.end);\r\n            one.start = Math.min(temp.start, one.start);\r\n        }\r\n        return one;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

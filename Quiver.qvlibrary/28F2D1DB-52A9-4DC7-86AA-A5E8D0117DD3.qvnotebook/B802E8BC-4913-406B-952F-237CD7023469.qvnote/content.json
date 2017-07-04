@@ -1,0 +1,9 @@
+{
+  "title": "bloomberg intern campus interview",
+  "cells": [
+    {
+      "type": "text",
+      "data": "在一个校友活动上面扔的简历 第二天早上约的当天下午面试 下午一开始因为没找到车位 回家之后又Uber回来 所以迟到了大概15分钟<div><br></div><div>两个面试官一个印度人 一个感觉是东欧人（口语不好的白人） 开始自我介绍 口动print out 之前已经说了无数遍的东西。 介绍完他们拿着我刚拿来的简历（感觉就是不怎么用心嘛） 东欧人让我说说上一个intern 的项目 表示很感兴趣 聊了大概20分钟 中间各种介绍各种问。 问完了之后表示他知道自己有一个朋友在做类似的东西 所以很感兴趣 ⊙﹏⊙b</div><div><br></div><div>然后印度人 问sqrt 纸上写code — 没有用newton法 直接说binary search</div><div>然后follow up 如果精确到10^-6怎么办 答曰修改返回条件 加一个mask来取10^-6之前的数字（digits）然后我以为他让我说怎么找那个mask 答曰记不得double 怎么bit 表示的叻 说了三段 sign accuracy and exponential — 打断 表示go too far</div><div><br></div><div>接下来东欧男让设计一个Quarter class 可以做到一个行为 给两个MM/DD/YYYY 的integer 然后输出左右和这个time period有交集的quarter 要求extendable 表示不懂 但是回答说可以分段print 四个函数 dateToDate(for same year) dateToEndYear dataFromStartYear wholeYear 东欧男表示没卵用 重新设计Quarter class 我表示Quarter到底是来干嘛的 东欧男表示many operations on them and make sure that is extendable 无语表示不make sense；</div><div><br></div><div>阿三救场说好吧 那我们不讨论这个问题叻 换一个： parse String to double; 一开始写的方式是分开integer part and decimal part 分别处理 然后东欧男表示java的String操作有什么特点 答曰操作就是copy 因为String是unmutable的。 问那是不是可以不copy呢 答曰可以 用StringBuffer 然后append 对于这题而言直接在上面check digit就可以叻 走到point之前做integer part 然后跳过一个做decimal part。</div><div><br></div><div>印度男表示时间差不多了 有啥问题 问：你们期待从intern那儿拿到啥 开始印度男表示只要用好你们学的知识就好了 答曰那我们学的都不同 你们有没有什么standard expectation。 表示没有什么 就是解决问题就好了 — 相当于没有问=、=</div><div><br></div><div>觉得和他家八字不合气场不投 觉得聊的也不是很投机 算是找找面试的感觉吧</div>"
+    }
+  ]
+}

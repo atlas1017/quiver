@@ -1,0 +1,95 @@
+{
+  "title": "CTCI data structure",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<ul><li>Strings and Arrays</li></ul>"
+    },
+    {
+      "type": "text",
+      "data": "<span style=\"line-height: 1.4;\">&nbsp; &nbsp; Hash Table — <span style=\"background-color: rgb(254, 250, 0);\">TODO 分别用BST 和 array 实现HashTable</span></span><br><ol><li>a simple implementation is an array and a hashing function</li><li>collisions&nbsp;—&nbsp;one is make each element of the array a linkedlist</li><li>we could also implement hash table with BST (guarantee log(N) time and also less space)&nbsp;</li></ol>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// implementation of hash table with array\npublic class HashSet<Student> {\n  Student[] arr;\n  public HashSet<Student>\n}"
+    },
+    {
+      "type": "text",
+      "data": "StringBuffer — conctanation of string is actually a process of copy and then adding in the end"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public String merge(String[] strs) {\n  StringBuffer res = new StringBuffer();\n  for(String one : strs)\n    res.append(one);\n  return res.toString();\n}"
+    },
+    {
+      "type": "text",
+      "data": "1.1 是不是String里面的char 都是unique的 如果只能用O（1）的空间<div>&nbsp; &nbsp; 1. are we allowed to modify the initial array — 不能用额外空间的话 立刻要问能不能用已经被分配的空间</div><div>&nbsp; &nbsp; 如果可以的话 sort and find (nlogn)</div><div>&nbsp; &nbsp; 2.如果不可以改变的话 逐个比较 — O(n2)</div>"
+    },
+    {
+      "type": "text",
+      "data": "<ul><li>Linked List — nothing much</li></ul>"
+    },
+    {
+      "type": "text",
+      "data": "<ul><li>Stacks and Queues</li></ul>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// 实现 stack by linked list trivially\npublic class Stack {\n  Node top;\n  public Stack() {\n    top = null;\n  }\n  Object pop() {\n    // throw exception\n    if(top == null)\n      return null;\n    Object one = top;\n    Object next = top.next;\n    top.next = null;\n    top = next;\n    return one.data;\n  }\n  Object peek() {\n    return top.date;\n  }\n  void push(Object o) {\n    Node oneNode = new Node(o);\n    oneNode.next = top;\n    top = oneNode;\n  }\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// 实现 queue 用 linkedlist\nclass Queue {\n  Node first;\n  Node last;\n  public Queue() {\n    first = null;\n    last = null;\n  }\n  Object dequeue () {\n    if(first == null)\n      return null;\n    Node one = first;\n    if(first == last) {\n      first = null;\n      last = null;\n    }\n    else {\n      Node next = first.next;\n      first.next = null;\n      first = mext;\n    }\n    return one.data;\n  }\n  void enqueue(Object o) {\n    if(first == null) {\n      Node one = new Node(o);\n      first = one;\n      last = one;\n      return;\n    }\n    Node one = new Node(o);\n    last.next = one;\n    last = last.next;\n    return;\n  }\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// 1.2 implement a stack with a min method\npublic StackWithMin {\n  Node top1;\n  Node top2;\n  public StackWithMin() {\n    top1 = null;\n    top2 = null;\n  }\n  int pop() {\n    // if top1 is not null then top2 is not null\n    if(top1 == null)\n      return null;\n    Node cur = top1;\n    top1 = top1.next;\n    cur.next = null;\n    if(cur.val == top2.val) {\n      Node cur1 = top2;\n      top2 = top2.next;\n      cur1.next = null;\n    }\n    return cur.val;\n  }\n  void push(int temp) {\n    Node one = new Node(temp);\n    one.next = top1;\n    top1 = one;\n    if(top == null) {\n      Node one1 = new Node(temp);\n      top2 = one1;\n    }\n    else if(one.val <= top2.val) {\n      Node one1 = new Node(temp);\n      top2.next = one;\n      top2 = one;\n    }\n    return;\n  } \n  int min () {\n    if(top2 == null)\n      return null;\n    return top2.val;\n  }\n}"
+    },
+    {
+      "type": "text",
+      "data": "<ul><li>Trees and Graph</li></ul><div>1. <span style=\"background-color: rgb(254, 250, 0);\">TODO how to implement a balanced tree (Red Black Tree and AVL Tree)</span></div><div>2. <span style=\"background-color: rgb(254, 250, 0);\">Trie 字典树 — 会实现字典树 知道常见的使用场景；</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// DFS\npublic boolean hasRoute(Node n1, Node n2) {\n  n1.visited = true;\n  if(n1 == n2)\n    return true;\n  for(Node oneNode : n1.neighbors) {\n    if(oneNode.visited)\n      continue;\n    if(hasRoute(oneNode, n2))\n      return true;\n  }\n  return false;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// 4.6\nTreeNode getNext(TreeNode cur) {\n  if(cur.right != null) {\n    TreeNode one = cur.right;\n    while(one.left != null)\n      one = one.left;\n    return one;\n  }\n  else {\n    TreeNode n = cur;\n    // if n is the last, then at some point its parent would be \n    // null and we will stop and return null\n    while(n.parent != null && n.parent.right == n)\n      n = n.parent; // after this n will be left child\n    return n.parent;\n  }\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// 4.7\nTreeNode getCommon(TreeNode n1, TreeNode n2, TreeNode head) {\n  if(find(head.left, n1)) {\n    if(find(head.right, n2)) \n      return head;\n    else\n      return getCommon(n1, n2, head.left);\n  }\n  else {\n    find(head.left, n2) \n      return head;\n    else \n      return getCommon(n1, n2, head.right);\n  }\n}\n\nprivate boolean find(TreeNode head, TreeNode n) {\n  if(head == null)\n    return false;\n  if(head == n)\n    return true;\n  return (find(head.left, n) || find(head.right, n));\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// 4.8\n// getHeight and then for same height -- compare the head val -- then call if it is identical\npublic boolean isSubTree(TreeNode n1, TreeNode n2) {\n  \n}\n\npublic boolean isIdentical(TreeNode n1, TreeNode n2) {\n  if(n1 == null && n2 == null)\n    return true;\n  if(n1.val != n2.val) return false;\n  return (isIdentical(n1.left, n2.left) && isIdentical(n1.right, n2.right));\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// 4.9\nint max;\npublic int getMax(TreeNode head) {\n  help(head);\n  return max;\n}\npublic int help(TreeNode head) {\n  if(head == null) return 0;\n  int left = help(head.left);\n  int right = help(head.right);\n  int res = Math.max(Math.max(head.val, head.val + left), head.val + right);\n  max = Math.max(max, res);\n  max = Math.max(max, help + right + left);\n  return res;\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

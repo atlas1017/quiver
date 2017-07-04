@@ -1,0 +1,67 @@
+{
+  "title": "LeetCode Stack",
+  "cells": [
+    {
+      "type": "text",
+      "data": "valid parentheses<div>1. 用一个hashMap 使code更简短</div><div>2. 犯的错在 取最后一个element的时候没有考虑到有没有这个element</div><div><span style=\"background-color: rgb(254, 250, 0);\">在access之前确定有没有这个element （包括确定是不是空或者null等等）</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean isValid(String s) {\r\n        if(s == null || s.length() < 1)\r\n            return true;\r\n        char[] arr = s.toCharArray();\r\n        if(arr.length % 2 == 1)\r\n            return false;\r\n        List<Character> stack = new ArrayList<Character>();\r\n        HashMap<Character, Character> map = new HashMap<Character, Character>();\r\n        map.put(')', '(');\r\n        map.put(']', '[');\r\n        map.put('}', '{');\r\n        for(int i = 0; i < arr.length; i++) {\r\n            char cur = arr[i];\r\n            if(cur == '{' || cur == '(' || cur == '[')\r\n                stack.add(cur);\r\n            else {\r\n                if(!map.containsKey(cur))\r\n                    return false;\r\n                // 这里没有考虑到stack为空的情况\r\n                if(!stack.isEmpty() && stack.get(stack.size() - 1) == map.get(cur))\r\n                    stack.remove(stack.size() - 1);\r\n                else\r\n                    return false;\r\n            }\r\n        }\r\n        return stack.isEmpty();\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "largest rectangle in histogram<div>犯的错误 — 在collect之后应该重新加入node,&nbsp;</div><div>i—;</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\n    public int largestRectangleArea(int[] height) {\n        if(height == null || height.length == 0)\n            return 0;\n        int[] h = new int[height.length + 1];\n        for(int i = 0; i < height.length; i++) \n            h[i] = height[i];\n        h[height.length] = 0;\n        List<Integer> stack = new ArrayList<Integer>();\n        int max = 0;\n        for(int i = 0; i < h.length; i++) {\n            if(stack.isEmpty() || h[i] > h[stack.get(stack.size() - 1)])\n                stack.add(i);\n            else {\n                while(!stack.isEmpty() && h[stack.get(stack.size() - 1)] >= h[i]) {\n                    int hei = h[stack.remove(stack.size() - 1)];\n                    int wid = stack.isEmpty() ? i : i - stack.get(stack.size() - 1) - 1;\n                    max = Math.max(max, wid * hei);\n                }\n                i--;\n            }\n        }\n        return max;\n\t}\n}"
+    },
+    {
+      "type": "text",
+      "data": "maximal rectangle<div>犯的错： matrix 是char[][] —&gt; 当成int[][] 叻 char 占用空间更小</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int maximalRectangle(char[][] matrix) {\r\n        if(matrix.length == 0 || matrix[0].length == 0)\r\n            return 0;\r\n        int res = 0;\r\n        for(int i = 0; i < matrix[0].length; i++) {\r\n            int[] heights = new int[matrix.length];\r\n            for(int j = 0; j < matrix.length; j++) {\r\n                int pos = i;\r\n                while(pos < matrix[0].length && matrix[j][pos] == '1')\r\n                    pos++;\r\n                heights[j] = pos - i;\r\n            }\r\n            res = Math.max(help(heights), res);\r\n        }\r\n        return res;\r\n    }\r\n    \r\n    public int help(int[] height) {\r\n        if(height == null || height.length == 0)\r\n            return 0;\r\n        int[] h = new int[height.length + 1];\r\n        for(int i = 0; i < height.length; i++) \r\n            h[i] = height[i];\r\n        h[height.length] = 0;\r\n        List<Integer> stack = new ArrayList<Integer>();\r\n        int max = 0;\r\n        for(int i = 0; i < h.length; i++) {\r\n            if(stack.isEmpty() || h[i] > h[stack.get(stack.size() - 1)])\r\n                stack.add(i);\r\n            else {\r\n                while(!stack.isEmpty() && h[stack.get(stack.size() - 1)] >= h[i]) {\r\n                    int hei = h[stack.remove(stack.size() - 1)];\r\n                    int wid = stack.isEmpty() ? i : i - stack.get(stack.size() - 1) - 1;\r\n                    max = Math.max(max, wid * hei);\r\n                }\r\n                i--;\r\n            }\r\n        }\r\n        return max;\r\n\t}\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "longest valid parentheses<div>犯的错：&nbsp;<span style=\"background-color: rgb(254, 250, 0);\">arr[stack.get(stack.size() - 1)] ==&nbsp;‘)’ 放进去的是index&nbsp;— 用arr[i] 读出来</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\n    public int longestValidParentheses(String s) {\n        char[] arr = s.toCharArray();\n        int max = 0;\n        List<Integer> stack = new ArrayList<Integer>();\n        for(int i = 0; i < arr.length; i++) {\n            if(stack.isEmpty() || arr[i] == '(')\n                stack.add(i);\n            else {\n                if(arr[stack.get(stack.size() - 1)] == ')')\n                    stack.add(i);\n                else {\n                    stack.remove(stack.size() - 1);\n                    int temp = stack.isEmpty() ? i + 1 : i - stack.get(stack.size() - 1);\n                    max = Math.max(max, temp);\n                }\n            }\n        }\n        return max;\n    }\n}"
+    },
+    {
+      "type": "text",
+      "data": "Simply Path<div><span style=\"background-color: rgb(254, 250, 0);\">String is hard</span></div><div><span style=\"background-color: rgb(254, 250, 0);\">1. 只有&nbsp;“/“的情况</span></div><div><span style=\"background-color: rgb(254, 250, 0);\">2. 开始的时候有多个 ‘/’ 的情况</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public String simplifyPath(String path) {\r\n        if(path == null || path.length() == 0) \r\n            return \"\";\r\n        int pos = 0;\r\n        while(pos < path.length() && path.charAt(pos) == '/')\r\n            pos++;\r\n        List<String> stack = new ArrayList<String>();\r\n        while(pos < path.length()) {\r\n            int next = pos;\r\n            while(next < path.length() && path.charAt(next) != '/')\r\n                next++;\r\n            String temp = path.substring(pos, next);\r\n            pos = next;\r\n            while(pos < path.length() && path.charAt(pos) == '/')\r\n                pos++;\r\n            if(temp.equals(\".\"))\r\n                continue;\r\n            else if(temp.equals(\"..\")) {\r\n                if(!stack.isEmpty())\r\n                    stack.remove(stack.size() - 1);\r\n                else \r\n                    continue;\r\n            }\r\n            else\r\n                stack.add(temp);\r\n        }\r\n        String res = \"\";\r\n        for(String one : stack) {\r\n            res += '/';\r\n            res += one;\r\n        }\r\n        if(res.equals(\"\"))\r\n            return \"/\";\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "<div>Evaluate Reverse Polish Notation</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int evalRPN(String[] tokens) {\r\n        List<Integer> stack = new ArrayList<Integer>();\r\n        for(int i = 0; i < tokens.length; i++) {\r\n            String temp = tokens[i];\r\n            if(temp.equals(\"+\") || temp.equals(\"-\") || temp.equals(\"*\") || temp.equals(\"/\")) {\r\n                int b = stack.remove(stack.size() - 1);\r\n                int a = stack.remove(stack.size() - 1);\r\n                stack.add(doOp(a, b, temp));\r\n            }\r\n            else\r\n                stack.add(Integer.parseInt(temp));\r\n        }\r\n        return stack.get(0);\r\n    }\r\n    \r\n    public int doOp(int a, int b, String op) {\r\n        if(op.equals(\"+\"))\r\n            return (a + b);\r\n        else if(op.equals(\"-\"))\r\n            return (a - b);\r\n        else if(op.equals(\"*\"))\r\n            return (a * b);\r\n        else \r\n            return (a / b);\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

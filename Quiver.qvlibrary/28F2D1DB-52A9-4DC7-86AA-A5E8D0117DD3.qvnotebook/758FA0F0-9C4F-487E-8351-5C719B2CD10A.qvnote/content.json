@@ -1,0 +1,73 @@
+{
+  "title": "383C midterm topics",
+  "cells": [
+    {
+      "type": "text",
+      "data": "linear indeoendence, basis, dimension, subspace, span, linear"
+    },
+    {
+      "type": "text",
+      "data": "row space, col space(matrix), null space and range"
+    },
+    {
+      "type": "text",
+      "data": "inverse, inner product"
+    },
+    {
+      "type": "text",
+      "data": "orthogonality, projections and projectors, unitary"
+    },
+    {
+      "type": "text",
+      "data": "vector norm and matrix norm"
+    },
+    {
+      "type": "text",
+      "data": "SVD: reduced, full and approximation"
+    },
+    {
+      "type": "text",
+      "data": "Orthogonal vectors: GS and QR factorization"
+    },
+    {
+      "type": "text",
+      "data": "stability, condition number, absolute condition number"
+    },
+    {
+      "type": "text",
+      "data": "floating number: IEEE 754 gap, spacing, machine epsilon"
+    },
+    {
+      "type": "text",
+      "data": "axioms : round **"
+    },
+    {
+      "type": "text",
+      "data": "numerical: forward and backward stable"
+    },
+    {
+      "type": "text",
+      "data": "Householder QR — singular vectors"
+    },
+    {
+      "type": "text",
+      "data": "least square problems — p = 2<div><br></div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "// SVD uniqueness"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

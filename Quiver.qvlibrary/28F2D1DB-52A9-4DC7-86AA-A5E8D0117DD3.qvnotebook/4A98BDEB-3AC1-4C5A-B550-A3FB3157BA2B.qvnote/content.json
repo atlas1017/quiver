@@ -1,0 +1,10 @@
+{
+  "title": "whatsapp 操练板",
+  "cells": [
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public int partition (int[] arr, int index) {\n  int pivot = arr[index];\n  swap(arr, index, arr.length - 1);\n  int p1 = 0;\n  int p2 = arr.length - 2;\n  while(p1 <= p2) {\n    while(p1 <= p2 && arr[p1] < pivot) {\n      p1++;\n    }\n    while(p1 <= p2 && arr[p2] >= pivot) {\n      p2--;\n    }\n    swap(arr, p1, p2);\n    p1++;\n    p2--;\n  }\n  \n  swap(arr, p1, arr.length - 1);\n  return p1;\n}\n\n// there are p1 number of numbers that is smaller than arr[index] (for the initial arr)"
+    }
+  ]
+}

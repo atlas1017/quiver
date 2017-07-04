@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>notes</key>
+	<array>
+		<dict>
+			<key>created_at</key>
+			<integer>1485085379</integer>
+			<key>mtime</key>
+			<integer>1485086090</integer>
+			<key>tags</key>
+			<array/>
+			<key>title</key>
+			<string>C++ Primer 速记</string>
+			<key>updated_at</key>
+			<integer>1485086090</integer>
+			<key>uuid</key>
+			<string>552BC1F8-930F-4D69-AEDA-13C8A1E0F51E</string>
+		</dict>
+	</array>
+</dict>
+</plist>

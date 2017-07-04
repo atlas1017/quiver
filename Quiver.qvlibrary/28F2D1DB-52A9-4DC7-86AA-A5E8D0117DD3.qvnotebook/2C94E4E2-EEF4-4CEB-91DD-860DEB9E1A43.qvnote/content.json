@@ -1,0 +1,14 @@
+{
+  "title": "Zillow intern OA ",
+  "cells": [
+    {
+      "type": "text",
+      "data": "网上海投的简历 第二天收到OA<div><br></div><div>第一题 atoi （对于java 是 string to long） 前面有+ - 号， 如果有非法的input就throw exception；</div><div>第二题 class implementation 题， 类似于binary search tree 的数据结构 然是有一个mid mid 的node的值等于当前node 的值</div><div>要求实现 insert 和 delete；如果删除的是最后一个 set成null 如果不存在这个值 do nothing</div><div>初始条件是有一个root 但是值是null；</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "insert (int val);\ndelete(int val);"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Google 两轮电面 我的面经",
+  "cells": [
+    {
+      "type": "text",
+      "data": "内推的Google 之后一周和recruiter约了三周之后的面试 连续两轮。<div><br></div><div>第一轮是一个NY 的工程师 听起来很有热情&nbsp;</div><div>问Java里面 final finally 和 finalized的区别&nbsp;</div><div>问我了不了解java里面的垃圾回收机制</div><div>然后问懂不懂Java里面的multithreading 和 distributed 的事情 答曰不懂</div><div>1. 估计觉得我实在太弱 出了个reverse string 我用Java写的每次copy 问时间和空间复杂度 答曰都是N^2 因为java里面的string操作都是copy</div><div>然后降低 用char[] 两边往中间走 swap&nbsp;</div><div>2. 有一组选手 组内比赛 有</div><div>&nbsp; &nbsp; a &gt; b</div><div>&nbsp; &nbsp; b &gt; c</div><div>&nbsp; &nbsp; a &gt; c 类似这样</div><div>&nbsp; &nbsp; 找出一个ranking list 要做到这个list （不能累加分数） — 就是找topological order 如果没有的话（也就是有圈）把这个圈里面的所有元素一次性加到list 里面</div><div>&nbsp; &nbsp; 自己定义存储的数据结构 输入输出</div><div>&nbsp; &nbsp; 这道题目没有写完 找cycle 然后加到list 里面并且update 的method没有实现 只写了idea comments</div><div>&nbsp; &nbsp; 时间复杂度（n* m）n 是player num m是game num</div><div><br></div><div><br></div><div>第二轮是一个CA的工程师 说话很慢 上来就做题 因为上一个一直做到最后一分钟 所以一开始还miss了一个电话</div><div>第一题 在tree里面找最长的path path可以从左支到右支 一开始用recursion 写的 时间n^2 空间n （n 是所有node 的数目）</div><div>然后要求改进 维护一个longest 在helper函数里面返回只包含一支的最大值 update 包含两支（都在这个子树里面的最大值）</div><div>时间空间都是N</div><div>给test case --done</div><div><br></div><div>第二题 一个matrix 对于每一个 col 和 row 都是sorted的 找一个数字有没有出现过</div><div>1. 暴力 N*M</div><div>2. 派出一部分 从对角线走 知道对角线大于target 那么对角线上一个元素的左上都wiped out 节省时间但是没降低复杂度</div><div>3. 从左下出发 如果target大了 往右走 如果target小了 往上走 直到走出去 如果找到就true 出来就false</div><div><br></div><div>做完大概35 所有他问我有没有什么问题 我就随便问了几个 聊到了50 结束</div><div><br></div><div><br></div>"
+    }
+  ]
+}

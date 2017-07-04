@@ -1,0 +1,21 @@
+{
+  "title": "Google 加面",
+  "cells": [
+    {
+      "type": "text",
+      "data": "实习面试 之前面过了两轮 然后有一轮表现不是很好 于是又加了一轮 因为同一天早上还有一个local的onsite 到家之后觉得体力已经有点跟不上了 上来是个NY的小哥 上来先问了一些Java implementation的问题 问map的实现方式和hashing的实现方式 比较BST实现和array of linkedlist 实现方式的performance 的差别"
+    },
+    {
+      "type": "text",
+      "data": "问知不知道directed graph — 答曰知道。 问怎么存储 答曰可以用adjacent list 存也可以用2D array。给定node class 实现设计edge 然后给定一组edge的数据 找出“无向”的edge的数目 无向意味着reverse的边也存在list里面"
+    },
+    {
+      "type": "text",
+      "data": "开始我的想法是构造 adjacent list 同时check 是不是存在reverse的node 用HashMap&lt;Node, List&lt;Node&gt;&gt;存 因为面试官说可能会有duplicate edges 所以还维护了一个visited edges 写完了之后 面试官不是很满意 问我为什么要把这些都存进去 是不是可以直接用edge写 发现的确不是必须要都存进去 直接比较值钱的edge就好了 （唯一的好处是可能会节省空间）<div><br></div><div>于是又写了直接比较edge的版本 每次进去先检查有没有reverse的（并且没有被visited过） 有的话就increment count并且加edges进visited 还是保留了visited的method。 我开始写的开始检查如果list 的长度小于2 就直接return 0 因为不会有reverse的 miss掉了一种情况在于start 和 end 都是同一个点 所以写了一个additional checking block。 如果不写那个additional checking 只在code 上修改一点 要怎么改。 想了一下答曰可以先看没有visite过就直接add 然后再检查存不存在reverse的 这样的话 即使对于a-&gt;a这种情况 也不需要additional checking了</div><div><br></div><div>问时间复杂度 答曰O(N) 问还能不能优化 答曰可能会有系数上面的优化 但是我们需要对于每个relation都做操作 所以不会有order上面的提升</div><div><br></div><div>写完之后面试官说reasonable 写test 然后问问题结束</div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

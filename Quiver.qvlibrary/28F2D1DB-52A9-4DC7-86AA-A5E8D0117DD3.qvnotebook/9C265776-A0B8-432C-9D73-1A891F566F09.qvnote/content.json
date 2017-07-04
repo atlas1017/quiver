@@ -1,0 +1,17 @@
+{
+  "title": "Linkedin 第一轮电话面试",
+  "cells": [
+    {
+      "type": "text",
+      "data": "在学校的career fair上面投的简历 两周之后recruiter联系 并且叫去吃了个饭。 约的下一周的电话面试 本来按照recruiter发给我的邮件有两个面试官 一个中国人 一个印度人 但是面试前一天通知update成了那个印度人"
+    },
+    {
+      "type": "text",
+      "data": "上来口音就有点醉醉的 然后介绍他是干什么的 然后问我之前都干了什么事儿 我就随便扯扯之前实习做的事情"
+    },
+    {
+      "type": "text",
+      "data": "<div>第一题 找最近的公共父节点 就是给定一个tree 两个node 要求返回最近的父节点 每个node都有parent节点 相当于找两个list 的merging point 很快就写了出来 只要计算出来从 root 到两个node的距离 然后让比较远的那个node 先走上distance距离 然后两个一起走直到相遇（事先已经确认 有root 并且两个node 都存在<span style=\"line-height: 1.4;\">）</span><br></div><div><br></div>第二题也很简单 但是交流出了一些问题。 &nbsp;<span style=\"line-height: 1.4;\">给定两个String 问两个String 是不是满足同样的pattern （isomorphic）意思就是说 对于如果A中有几个位置上面字母相同 那么对应位置的B的字幕也要一样 但是具体的字母可以不同（同时反过来如果B中几个位置上面的字母相同 A也要一样）</span><div><br><div><div><div>我开始的想法是对于第一个word 建一个hashmap &lt;char, list&lt;int&gt;&gt; 前面是某一个character 后面是list of indexes 然后对于每一个list里面找是不是在B里面都一样 同时统计B中的不同的char的数目。 如果没有发现某个list里面有不同的char 并且不同的char的数字等于hashmap的size话 就返回true 不然的话 返回false。&nbsp;</div><div><br></div><div>但是面试官对于我在遍历所有list的时候用两层for loop 非常不满 （摊手）问我这个nested for loop 时间复杂度是啥 我说是O(N) 他表示很惊讶 说你做了两层啊 我就举例子 我说如果所有的char都是一样的 那么只有一个list 就是N。 然后他就说 你说的是best case 那worstcase呢 我说了一大堆解释 但是面试官一直表示外面是m里面是n m*n怎么就是N?&nbsp;</div><div>我最后解释说因为我永远不会access 一个index两次 所以还是N 他还是表示不满意 说“你看外面是m 里面是n m*n 你怎么保证是N呢” 我当时真的有点无语了 一直解释说我不能保证m*n是N 但是我能保证对于所有m个lists 里面元素的和是N 到这儿好像他也觉得不大好 就说我这儿写一个nested for loop 太丑了 不elegant 能不能不用。&nbsp;</div><div><br></div><div>于是我就对两个word 都建了hashmap 然后对于hashmap的values 逐个比较（因为如果两个pattern 一样 index 放进去的顺序也应该是一样的）写出来了之后 面试官表示你用list 比较每次linear time 能不能优化 我说用String 每次append # 和 index 然后直接比较String 面试官表示然并卵 问能不能用其它的data structure 我就试探性的问 那用set？ 他说对对 就是set 你改一下吧。&nbsp;<span style=\"line-height: 1.4;\">改完之后 还有几分钟 就让我问问题。了解到他之前是L的intern 然后拿到了return offer说说好话 问他怎么做到一个successful intern的 然后说了拜拜...</span></div></div></div></div>"
+    }
+  ]
+}

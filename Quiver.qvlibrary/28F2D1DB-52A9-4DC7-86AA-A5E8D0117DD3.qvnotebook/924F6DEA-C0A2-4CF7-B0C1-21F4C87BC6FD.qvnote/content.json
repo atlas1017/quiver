@@ -1,0 +1,24 @@
+{
+  "title": "Trie 学习笔记 — Trie 的简单操作 get insert and delete",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<div>说明：</div><div>1. 所有的node 都没有记录char的值的 所有值都是由其在上一层的位置决定的</div><div>2. 对于node 而言 只需要 new Node() &nbsp;就可以建一个新的node</div><div>3. 对于每一个string而言 其最后一个char 对应的node isEnd 为true</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public void insert(String s) {\n  insertHelper(root, s, 0);\n  return;\n}\nprivate Node insertHelper(Node root, String s, int pos) {\n  if(root == null)\n    root = new Node();\n  if(pos == s.length()) {\n    root.isEnd = true;\n    return root;\n  }\n  int index = (int)(s.charAt(pos) - 'a');\n  root.next[index] = insertHelper(root.next[index], s, pos + 1]);\n  return root;\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public boolean get(String s) {\n  return getHelper(root, s, 0);\n}\nprivate boolean getHelper(Node n, String s, int pos) {\n  if(n == null) return false;\n  if(pos == s.length()) return n.isEnd;\n  int index = (int)(s.charAt(pos) - 'a');\n  return getHelper(n.next[index], s, pos + 1);\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public void delete (String s) {\n  deleteHelper(root, s, 0);\n  return;\n}\nprivate Node delete(Node root, String s, int pos) {\n  if(root == null) return null;\n  if(pos == s.length())\n    root.isEnd = false;\n  else {\n    int index = (int)(s.charAt(pos) - 'a');\n    root.next[index] = delete(root.next[index], s, pos + 1);\n  }\n  if(root.isEnd) return root;\n  for(Node one : root.next) {\n    if(one != null)\n      return root;\n  }\n  return null;\n}"
+    }
+  ]
+}

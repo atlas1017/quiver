@@ -1,0 +1,13 @@
+{
+  "title": "C++ Primer 速记",
+  "cells": [
+    {
+      "type": "text",
+      "data": "第一章<div>什么是类型？</div><div>类型是一种abstract 是具有相似的性质的data的属性的集合的子集 一方面规定了数据storage formatting 另外一方面instruct coders to create data or use data of this type in a proper way</div><div><br></div><div>编译 运行&nbsp;</div><div>IDE or command line</div><div>how to use manual page</div><div><br></div><div>input and output&nbsp;</div><div>std::cin &nbsp;and std::cout</div><div>first &gt;&gt; write into buffer and std::endl flush the buffer</div><div><span style=\"line-height: 1.4;\">&nbsp;</span><br></div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

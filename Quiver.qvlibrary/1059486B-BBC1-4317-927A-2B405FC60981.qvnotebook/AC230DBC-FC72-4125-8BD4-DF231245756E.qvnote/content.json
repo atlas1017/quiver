@@ -1,0 +1,9 @@
+{
+  "title": "Notes for C++ Primer Part 2",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<ol><li><span style=\"line-height: 1.4;\">primitive built-in types &nbsp;</span><img src=\"quiver-image-url/600B7ED7-DCF0-423A-949E-9FB91B02E41E.png\" style=\"line-height: 1.4;\"></li><li>literals are values that are self evident</li><ol><li>integers and strings thta is represented directly by the value themselves rather than through variables which servel like constants.</li><li><span style=\"line-height: 1.4;\">Also there are some boolean and pointer literals — like for boolean true and false for pointer — nullptr</span></li></ol><li>variables&nbsp;</li><ol><li>definition and init</li><li>declaration init of variables — scope of a name (nested scope)</li></ol><li>compound types — it is a type that is defined in terms of another</li><ol><li>references — an altanative name for an obejct (also with a type when declared) — basically same thing with an alias</li><li>pointer — a compound type that point to an object — so * will get the content and &amp; will get the address or the pointer of the object</li><ol><li>void pointer — this type of pointer could hold all types of objects</li></ol><li>others</li></ol><li><br></li></ol><div>&nbsp; &nbsp;&nbsp;</div>"
+    }
+  ]
+}

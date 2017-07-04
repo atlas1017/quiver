@@ -1,0 +1,29 @@
+{
+  "title": "tableau 实习 onsite",
+  "cells": [
+    {
+      "type": "text",
+      "data": "之前面过了一轮 然后当时就给了挺不错的反馈 然后过了一周通知onsite 因为是local 所以其实也很方便 一共两轮&nbsp;"
+    },
+    {
+      "type": "text",
+      "data": "第一轮是一个看起来很有热情的小哥 上来先做了一个warmup 就是set zero的题目 一个matrix里面 如果有一个元素是0 就把所有这行和这列的元素都set成零。 很快做完了之后 做一个matrix rotating 的题目 也很基础 开始给了一个space O(N) 的做法 然后改进成了space O(1) 然后写test&nbsp;<span style=\"line-height: 1.4;\">两道题目都很基础 但是看起来他们比较在意coding style 和 test 的质量。</span><div><span style=\"line-height: 1.4;\">然后讨论一个design的问题 就是我们需要simulate 一个东西来评估河里面某几种鱼类的健康状况 比较没有思路 一直在和小哥clarify 最后得到的东西大概是我们比较在乎对于某一个特定区域 食物数量 鱼的数目 ph值 和 盐度对于鱼的影响 然后鱼的数目也会影响盐度 ph值和食物 根据这几个factor 我们可以得到对于living condition的一个评估 然后我们近似的认为living condition的状况就是这个鱼的健康状况</span></div><div><span style=\"line-height: 1.4;\">不是很擅长回答这种问题 还是有很多需要提高的地方</span></div>"
+    },
+    {
+      "type": "text",
+      "data": "第二轮是一个印度大叔 但是觉得在美国很久了 所以气质比较西化 英语也很好。 开始说之前在微软工作了十几年 然后跳槽来Tableau。&nbsp;<div>第一题是有没有什么办法 可以对一个stream 等可能的选出k个元素（对于所有元素而言 选中的概率都是k/N）难点就是是stream的 所以需要一个不断update的做法 — reservoir sampling</div><div>然后给一个matrix 说每个row都是sorted的 找整个matrix里面所有数字的median 开始的做法是先转化成找第k大的元素</div><div>然后对于各个row 做merge sort 这里一开始的做法是对于每个row建list 然后用heap —&gt; 改进维护index simulate heap</div>"
+    },
+    {
+      "type": "text",
+      "data": "没有完全实现出来 因为第一轮占用叻比较多的时间 第二轮大概只有30分钟。希望能有不错的结果吧~"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "title": "LeetCode DP",
+  "cells": [
+    {
+      "type": "text",
+      "data": "unitary binary search tree"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int numTrees(int n) {\r\n        int[] dp = new int[n + 1];\r\n        dp[0] = 1;\r\n        dp[1] = 1;\r\n        for(int i = 2; i < n + 1; i++) {\r\n            int temp = 0;\r\n            for(int j = 0; j < i; j++) \r\n                temp += dp[i - 1 - j] * dp[j];\r\n            dp[i] = temp;\r\n        }\r\n        return dp[n];\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "generate parentheses<div>如果开始的时候用 List&lt;List&lt;String&gt;&gt; 就会很慢 因为需要检查在不在里面 linear time</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<String> generateParenthesis(int n) {\r\n        List<Set<String>> dp = new ArrayList<Set<String>>();\r\n        Set<String> one = new HashSet<String>();\r\n        one.add(\"()\");\r\n        dp.add(one);\r\n        for(int i = 2; i <= n; i++) {\r\n            Set<String> cur = new HashSet<String>();\r\n            for(int j = 1; j < i; j++) {\r\n                Set<String> lefts = dp.get(j - 1);\r\n                Set<String> rights = dp.get(i - j - 1);\r\n                for(String left : lefts) {\r\n                    for(String right : rights) {\r\n                        String temp = left + right;\r\n                        if(!cur.contains(temp)) cur.add(temp);\r\n                    }\r\n                }\r\n                for(String last : dp.get(dp.size() - 1)) {\r\n                    String temp = '(' + last + ')';\r\n                    cur.add(temp);\r\n                }\r\n            }\r\n            dp.add(cur);\r\n        }\r\n        List<String> res = new ArrayList<String>();\r\n        for(String oneStr : dp.get(n - 1))\r\n            res.add(oneStr);\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "unique path"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int uniquePaths(int m, int n) {\r\n        int[][] dp = new int[m][n];\r\n        for(int i = 0; i < n; i++) \r\n            dp[0][i] = 1;\r\n        for(int i = 0; i < m; i++)\r\n            dp[i][0] = 1;\r\n        for(int i = 1; i < m; i++) {\r\n            for(int j = 1; j < n; j++) {\r\n                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];\r\n            }\r\n        }\r\n        return dp[m - 1][n - 1];\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "unique path II"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int uniquePathsWithObstacles(int[][] obstacleGrid) {\r\n        int row = obstacleGrid.length;\r\n        int col = obstacleGrid[0].length;\r\n        int[][] dp = new int[row][col];\r\n        for(int i = 0; i < row; i++) {\r\n            for(int j = 0; j < col; j++)\r\n                if(obstacleGrid[i][j] == 1) dp[i][j] = 0;\r\n        }\r\n        int pos = 0;\r\n        while(pos < row && obstacleGrid[pos][0] == 0)\r\n            dp[pos++][0] = 1;\r\n        pos = 0;\r\n        while(pos < col && obstacleGrid[0][pos] == 0)\r\n            dp[0][pos++] = 1;\r\n        for(int i = 1; i < row; i++ ){\r\n            for(int j = 1; j < col; j++) {\r\n                if(obstacleGrid[i][j] == 1) continue;\r\n                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];\r\n            }\r\n        }\r\n        return dp[row - 1][col - 1];\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "minimum path sum<div><span style=\"background-color: rgb(254, 250, 0);\">用滚动数组 不用二维数组</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int minPathSum(int[][] grid) {\r\n        if(grid.length == 0 || grid[0].length == 0)\r\n            return 0;\r\n        int[] rows = new int[grid.length]; // one col of diff rows\r\n        int[] cols = new int[grid[0].length]; // one row of diff cols\r\n        rows[0] = grid[0][0];\r\n        cols[0] = grid[0][0];\r\n        for(int i = 1; i < grid.length; i++)\r\n            rows[i] = rows[i - 1] + grid[i][0];\r\n        for(int i = 1; i < grid[0].length; i++)\r\n            cols[i] = cols[i - 1] + grid[0][i];\r\n        for(int i = 1; i < Math.min(grid.length, grid[0].length); i++) {\r\n            int temp = Math.min(rows[i], cols[i]) + grid[i][i];\r\n            rows[i] = temp;\r\n            cols[i] = temp;\r\n            for(int j = i + 1; j < grid.length; j++)\r\n                rows[j] = Math.min(rows[j], rows[j - 1]) + grid[j][i];\r\n            for(int j = i + 1; j < grid[0].length; j++)\r\n                cols[j] = Math.min(cols[j], cols[j - 1]) + grid[i][j];\r\n        }\r\n        if(grid.length >= grid[0].length)\r\n            return rows[grid.length - 1];\r\n        else \r\n            return cols[grid[0].length - 1];\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "pascal triangle i &amp; II<div><span style=\"background-color: rgb(254, 250, 0);\">出错 没有数对数字 — 每次遇到的时候 带到具体的例子里面</span></div><div><span style=\"background-color: rgb(254, 250, 0);\">出错 没有分清 i 和 j 数字的位置</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<List<Integer>> generate(int numRows) {\r\n        List<List<Integer>> res = new ArrayList<List<Integer>>();\r\n        if(numRows == 0) return res;\r\n        List<Integer> one = new ArrayList<Integer>();\r\n        one.add(1);\r\n        res.add(one);\r\n        for(int i = 1; i < numRows; i++) {\r\n            List<Integer> last = res.get(res.size() - 1);\r\n            List<Integer> temp = new ArrayList<Integer>();\r\n            temp.add(1);\r\n            for(int j = 1; j < (i + 1)- 1; j++)  // i + 1 is number of nums for this row index\r\n                temp.add(last.get(j - 1) + last.get(j));\r\n            temp.add(1);\r\n            res.add(temp);\r\n        }\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<Integer> getRow(int rowIndex) {\r\n        List<Integer> prev = new ArrayList<Integer>();\r\n        prev.add(1);\r\n        for(int i = 1; i <= rowIndex; i++) {\r\n            List<Integer> cur = new ArrayList<Integer>();\r\n            cur.add(1);\r\n            for(int j = 1; j < i; j++)\r\n                cur.add(prev.get(j - 1) + prev.get(j));\r\n            cur.add(1);\r\n            prev = cur;\r\n        }\r\n        return prev;\r\n    }\r\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int minimumTotal(List<List<Integer>> triangle) {\r\n        List<Integer> prev = new ArrayList<Integer>();\r\n        prev.add(triangle.get(0).get(0));\r\n        for(int i = 1; i < triangle.size(); i++) { // i + 1 numbers this line in total\r\n            List<Integer> cur = new ArrayList<Integer>();\r\n            List<Integer> nums = triangle.get(i);\r\n            cur.add(prev.get(0) + nums.get(0));\r\n            for(int j = 1; j < i; j++)\r\n                cur.add(Math.min(prev.get(j - 1), prev.get(j)) + nums.get(j));\r\n            cur.add(prev.get(i - 1) + nums.get(i));\r\n            prev = cur;\r\n        }\r\n        int min = Integer.MAX_VALUE;\r\n        for(Integer one : prev)\r\n            min = Math.min(min, one);\r\n        return min;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "longest palindrome substring"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public String longestPalindrome(String str) {\r\n        int len = str.length();\r\n        char[] arr = str.toCharArray();\r\n        int max = 1;\r\n        int start = 0;\r\n        boolean[][] dp = new boolean[len][len]; // dp[i][j] means that if substring(i, j + 1) is a palin\r\n        for(int i = 0; i < len; i++)\r\n            dp[i][i] = true;\r\n        for(int i = 1; i < len; i++) {\r\n            for(int j = 0; j < len - i; j++) {\r\n                dp[j][j + i] = (dp[j + 1][j + i - 1] || i == 1) && (arr[j] == arr[j + i]);\r\n                if(dp[j][j + i] && i + 1 > max){\r\n                    start = j;\r\n                    max = i + 1;\r\n                }\r\n            }\r\n        }\r\n        return str.substring(start, start + max);\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "edit distance<div>犯的错误： 对于dp[i][j] 匹配到的位置是i - 1 和 j - 1</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int minDistance(String word1, String word2) {\r\n        if(word1.length() == 0) return word2.length();\r\n        if(word2.length() == 0) return word1.length();\r\n        char[] arr1 = word1.toCharArray();\r\n        char[] arr2 = word2.toCharArray();\r\n        int[][] dp = new int[arr1.length + 1][arr2.length + 1];\r\n        for(int i = 0; i < arr1.length + 1; i++)\r\n            dp[i][0] = i;\r\n        for(int i = 0; i < arr2.length + 1; i++)\r\n            dp[0][i] = i;\r\n        for(int i = 1; i <= arr1.length; i++) {\r\n            for(int j = 1; j <= arr2.length; j++) {\r\n                if(arr1[i - 1] == arr2[j - 1])\r\n                    dp[i][j] = dp[i - 1][j - 1];\r\n                else \r\n                    dp[i][j] = Math.min( Math.min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;\r\n            }\r\n        }\r\n        return dp[arr1.length][arr2.length];\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "distinct subsequences<div>this question should be solved in DP because it is a counting problem;</div><div>but it took a while for me to figure out how to construct such a model</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int numDistinct(String s, String t) {\r\n        if(t.length() == 0) return 1;\r\n        if(s.length() == 0) return 0;\r\n        int[][] dp = new int[s.length() + 1][t.length() + 1];\r\n        for(int i = 0; i <= s.length(); i++)\r\n            dp[i][0] = 1;\r\n        for(int i = 1; i <= t.length(); i++)\r\n            dp[0][i] = 0;\r\n        for(int i = 1; i <=s.length(); i++) {\r\n            for(int j = 1; j <= t.length(); j++) {\r\n                dp[i][j] = dp[i - 1][j];\r\n                dp[i][j] += (s.charAt(i - 1) == t.charAt(j - 1)) ? dp[i - 1][j - 1] : 0;\r\n            }\r\n        }\r\n        return dp[s.length()][t.length()];\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "implement strStr()&nbsp;<div>非常蠢 — 先实现用2D dp —memory exceed — &nbsp;滚动数组 — timeout — hard coding</div><div>犯了一个错 — 之前已经匹配好是不够的 因为我们想要匹配并且在最后这个位置结束</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int strStr(String haystack, String needle) {\r\n        if(needle.length() == 0) return 0;\r\n        if(haystack.length() == 0) return -1;\r\n        char[] arr1 = haystack.toCharArray();\r\n        char[] arr2 = needle.toCharArray();\r\n        char last = arr2[arr2.length - 1];\r\n        boolean lastExist = false;\r\n        for(char one : arr1) {\r\n            if(one == last) {\r\n                lastExist = true;\r\n                break;\r\n            }\r\n        }\r\n        if(!lastExist) return -1;\r\n        return help(haystack, needle);\r\n    }\r\n    \r\n    private int help(String haystack, String needle) {\r\n        boolean[] dpCol = new boolean[needle.length() + 1];\r\n        char[] arr1 = haystack.toCharArray();\r\n        char[] arr2 = needle.toCharArray();\r\n        dpCol[0] = true;\r\n        for(int j = 1; j <= arr1.length; j++) {\r\n            for(int i = Math.min(arr2.length, j); i >= 1; i--) {\r\n                dpCol[i] = (dpCol[i - 1] && arr1[j - 1] == arr2[i - 1]);\r\n                if(i == needle.length() && dpCol[i] == true) \r\n                    return (j - i);\r\n            }\r\n        }\r\n        return -1;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "gas station"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int canCompleteCircuit(int[] gas, int[] cost) {\r\n        int len = gas.length;\r\n        int i = 0;\r\n        while(i < len) {\r\n            int far = far(i, gas, cost);\r\n            if(far == -1)\r\n                return i;\r\n            else\r\n                i += far + 1;\r\n        }\r\n        return -1;\r\n    }\r\n    \r\n    public int far(int pos, int[] gas, int[] cost) {\r\n        int cur = pos;\r\n        int left = gas[cur];\r\n        int count = 0;\r\n        while(count < gas.length)\r\n        {\r\n            if(left < cost[cur])\r\n                return (cur + gas.length - pos) % gas.length;\r\n            int next = (cur + 1) % gas.length;\r\n            left = left - cost[cur] + gas[next];\r\n            cur = next;\r\n            count++;\r\n        }\r\n        return -1;\r\n    }\r\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    HashMap<Integer, Integer> m1; // distance\r\n    HashMap<Integer, Integer> m2; // cost\r\n    public int canCompleteCircuit(int[] gas, int[] cost) {\r\n        m1 = new HashMap<Integer, Integer>();\r\n        m2 = new HashMap<Integer, Integer>();\r\n        int sum1 = 0;\r\n        for(int temp : gas) sum1 += temp;\r\n        int sum2 = 0;\r\n        for(int temp : cost) sum2 += temp;\r\n        if(sum1 < sum2) return -1;\r\n        \r\n        for(int i = 0; i < gas.length; i++) {\r\n            if(isValid(gas, cost, i))\r\n                return i;\r\n        }\r\n        return -1;\r\n    }\r\n    \r\n    private boolean isValid(int[] gas, int[] cost, int start) {\r\n        // only count for times\r\n        int money = 0;\r\n        int len = gas.length;\r\n        int dis = 0;\r\n        while(dis < len) {\r\n            int cur = (dis + start) % len;\r\n            if(m1.containsKey(cur)) {\r\n                dis += m1.get(cur);\r\n                money += m2.get(cur);\r\n            }\r\n            else {\r\n                dis++;\r\n                money -= cost[cur];\r\n                money += gas[cur];\r\n            }\r\n            if(money < 0) {\r\n                m1.put(start, dis);\r\n                m2.put(start, money);\r\n                return false;\r\n            }\r\n        }\r\n        return true;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "decode ways"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int numDecodings(String s) {\r\n        if(s == null || s.length() == 0)\r\n            return 0;\r\n        HashSet<Integer> done = new HashSet<Integer>(); // this will store the indexes of parts with 0\r\n                                                        // means no more combination for this kind\r\n        String parsedStr = parse(s, done);\r\n        // handle with 0 because 0 can be only attached to former one\r\n        if(parsedStr == null)\r\n            return 0;\r\n        int[] dp = new int[parsedStr.length() + 1];\r\n        dp[0] = 1;\r\n        dp[1] = 1; // here 0 means nothing and 1 means the first or tht one with index 0\r\n        int pos = 1;\r\n        while(pos < parsedStr.length())\r\n        {\r\n            if(done.contains(pos - 1) || done.contains(pos))\r\n                dp[pos + 1] = dp[pos];\r\n            else\r\n            {\r\n                if(isLetter(parsedStr.substring(pos - 1, pos + 1)))\r\n                    dp[pos + 1] = dp[pos] + dp[pos - 1];\r\n                else\r\n                    dp[pos + 1] = dp[pos];\r\n            }\r\n            pos++;\r\n        }\r\n        return dp[pos];\r\n    }\r\n    \r\n    public boolean isLetter(String s) {\r\n        if(s.charAt(0) == '1')\r\n            return true;\r\n        if(s.charAt(0) == '2' && (s.charAt(1) >= '0' && s.charAt(1) <= '6'))\r\n            return true;\r\n        else\r\n            return false;\r\n    }\r\n    \r\n    public String parse(String s, HashSet<Integer> done) {\r\n        char[] arr = s.toCharArray();\r\n        int pos = 0;\r\n        String res = \"\";\r\n        while(pos < arr.length) {\r\n            if(arr[pos] == '0') {\r\n                if((pos > 0) && (arr[pos - 1] == '1' || arr[pos - 1] == '2') && (!done.contains(pos - 1)))\r\n                    done.add(pos - 1);\r\n                else\r\n                    return null;\r\n            }\r\n            else\r\n                res += arr[pos];\r\n            pos++;\r\n        }\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int numDecodings(String s) {\r\n        if(s == null || s.length() == 0) return 0;\r\n        char[] arr = s.toCharArray();\r\n        int[] dp = new int[arr.length + 1]; // means that i pos + 1 pos is for pos\r\n        dp[0] = 1;\r\n        dp[1] = s.charAt(0) != '0' ? 1 : 0;;\r\n        for(int i = 2; i <= arr.length; i++) {\r\n            if(isLetter(s.substring(i - 1, i)))\r\n                dp[i] += dp[i - 1];\r\n            if(isLetter(s.substring(i - 2, i)))\r\n                dp[i] += dp[i - 2];\r\n        }\r\n        return dp[arr.length];\r\n    }\r\n    \r\n    public boolean isLetter(String s) {\r\n        if(s.charAt(0) == '0')\r\n            return false;\r\n        int temp = Integer.parseInt(s);\r\n        return (temp < 27);\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "Interleaving String<div>三维DP</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean isInterleave(String s1, String s2, String s3) {\r\n        // 3D -- DP\r\n        int len1 = s1.length();\r\n        int len2 = s2.length();\r\n        int len3 = s3.length();\r\n        boolean[][][] dp = new boolean[s1.length() + 1][s2.length() + 1][s3.length() + 1];\r\n        dp[0][0][0] = true;\r\n        \r\n        for(int i = 1; i <= len3; i++)\r\n            dp[0][0][i] = false;\r\n        for(int i = 1; i <= len2; i++)\r\n            dp[0][i][0] = false;\r\n        for(int i = 1; i <= len1; i++)\r\n            dp[i][0][0] = false;\r\n        \r\n       \r\n        for(int i = 1; i <= len1; i++) {\r\n            for(int j = 1; j <= len2; j++)\r\n                dp[i][j][0] = false;\r\n        }\r\n        for(int i = 1; i <= len1; i++) {\r\n            for(int j = 1; j <= len3; j++) {\r\n                if(i != j)\r\n                    dp[i][0][j] =  false;\r\n                else\r\n                    dp[i][0][j] = dp[i - 1][0][j - 1] && (s1.charAt(i - 1) == s3.charAt(j - 1));\r\n            }\r\n        }\r\n        for(int i = 1; i <= len2; i++) {\r\n            for(int j = 1; j <= len3; j++) {\r\n                if(i != j)\r\n                    dp[0][i][j] =  false;\r\n                else\r\n                    dp[0][i][j] = dp[0][i - 1][j - 1] && (s2.charAt(i - 1) == s3.charAt(j - 1));\r\n            }\r\n        }\r\n        \r\n       \r\n        for(int i = 1; i <= s1.length(); i++) {\r\n            for(int j = 1; j <= s2.length(); j++) {\r\n                for(int k = 1; k <= s3.length(); k++) {\r\n                    if(i + j != k)\r\n                        dp[i][j][k] = false;\r\n                    else\r\n                        dp[i][j][k] = (dp[i - 1][j][k - 1] && s1.charAt(i - 1) == s3.charAt(k - 1)) \r\n                                    || (dp[i][j - 1][k - 1] && s2.charAt(j - 1) == s3.charAt(k - 1));\r\n                }\r\n            }\r\n        }\r\n       \r\n        return dp[len1][len2][len3];\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "palindrome partitioning II"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int minCut(String s) {\r\n        // 1. construct a 2D array to mark all palindrome\r\n        // 2. then if we find a palindrome then we could update parts\r\n        // 3. then - 1 is the minimum cut\r\n        char[] arr = s.toCharArray();\r\n        int len = arr.length;\r\n        int[] parts = new int[len + 1];\r\n        for(int i = 0; i <= len; i++)\r\n            parts[i] = i;\r\n        \r\n        // here construct a 2D array that marks palin in a 2D array   \r\n        boolean[][] dp = new boolean[len][len];\r\n        for(int i = 0; i < len; i++) \r\n            dp[i][i] = true;\r\n        for(int i = 0; i < len - 1; i++) {\r\n            if(arr[i] == arr[i + 1])\r\n                dp[i][i + 1] = true;\r\n        }\r\n        for(int i = 2; i < len; i++) {\r\n            for(int j = 0; j < len - i; j++) {\r\n                dp[j][i + j] = dp[j + 1][j + i - 1] && arr[j] == arr[j + i];\r\n            }\r\n        }\r\n        \r\n        // update the parts\r\n        for(int i = 0; i < len; i++) {\r\n            for(int j = i; j < len; j++) {\r\n                if(dp[i][j])\r\n                    parts[j + 1] = Math.min(parts[j + 1], parts[i] + 1);\r\n            }\r\n        }\r\n        return parts[len] - 1;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "wildcard matching — ？ match 任何一个char， * match 任何sequence （从长度为零到整个string）<div>如果说在第二个String 里出现* 但是没有match 上的情况只能可能是在* 两侧有一些char和第一个里面的match 不上</div><div>策略： 1. 两个位置分别开始 — 如果当前位置的char 相同 那么向后一位；</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. 如果当前位置是* 记录*位置 和当前的match 的位置；</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. 如果后面的可以match上 那么这个*不要用 如果走到某一步 发现没有办法继续走下去 那么尝试让这个* match一个 — 以此类推 直到match完所有第一个str中的元素为止；</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. 不可能出现 * 匹配太多的情况 因为我们总是尽量少的让*匹配 — 把机会让给后面的不是*的来匹配；</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. * 之前的就帮不上了；</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean isMatch(String s, String p) {\r\n        int match = -1;\r\n        int star = -1;\r\n        int pos1 = 0;\r\n        int pos2 = 0;\r\n        while(pos1 < s.length()) {\r\n            if(pos2 < p.length() && ((p.charAt(pos2) == '?') || (p.charAt(pos2) == s.charAt(pos1)))) {\r\n                pos1++;\r\n                pos2++;\r\n            }\r\n            else if(pos2 < p.length() && p.charAt(pos2) == '*') {\r\n                star = pos2;\r\n                match = pos1;\r\n                pos2++;\r\n            }\r\n            else if(star != -1) {\r\n                pos2 = star + 1;\r\n                match++;\r\n                pos1 = match;\r\n            }\r\n            else \r\n                return false;\r\n        }\r\n        while(pos2 < p.length() && p.charAt(pos2) == '*')\r\n            pos2++;\r\n        return (pos2 == p.length());\r\n    }\r\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean isMatch(String s, String p) {\r\n        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];\r\n        char[] arr1 = s.toCharArray();\r\n        char[] arr2 = p.toCharArray();\r\n        dp[0][0] = true;\r\n        int pos = 1;\r\n        while(pos <= arr2.length && arr2[pos - 1] == '*')\r\n            dp[0][pos++] = true;\r\n        for(int i = 1; i <= arr1.length; i++) {\r\n            for(int j = 1; j <= arr2.length; j++) {\r\n                if(arr2[j - 1] == '*') {\r\n                    if(dp[i - 1][j - 1] || dp[i][j - 1] || dp[i - 1][j])\r\n                        dp[i][j] = true;\r\n                }\r\n                else\r\n                    dp[i][j] = (dp[i - 1][j - 1]) && ( (arr2[j - 1] == '?') || (arr2[j - 1] == arr1[i - 1]) );\r\n            }\r\n        }\r\n        return dp[s.length()][p.length()];\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

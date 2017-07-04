@@ -1,0 +1,17 @@
+{
+  "title": "Palantir OA",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<div>说是90min，点进去其实是120min。两道题。</div><div>1：input String[]， 每一个String是HH:MM 格式， 例如： 10:35 &nbsp;OR 00:05</div><div>找出最小time difference， 注意： 23:55 到 00:04 只有 9min difference</div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "<div>2：input String[] &nbsp; 是一堆transaction的记录： &nbsp; &nbsp; &lt;name&gt;|&lt;amount USD&gt;|&lt;City&gt;|&lt;Time&gt;</div><div>找出所有有问题的transaction。</div><div>有问题的definition是，满足下列任何一条即可：</div><div>&nbsp; &nbsp; 1. amount &gt; 3000</div><div>&nbsp; &nbsp; 2. 同一人在一小时内有两个或以上的transaction不在同一个city</div><div>output 一个人名的list，要按照出问题的时间顺序排列。排列时，如果有人出现第二种问题，</div><div>那么他的出问题时间要按照第一次suspicious transaction的时间计算。</div>"
+    }
+  ]
+}

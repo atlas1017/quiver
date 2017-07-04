@@ -1,0 +1,30 @@
+{
+  "title": "LeetCode BFS",
+  "cells": [
+    {
+      "type": "text",
+      "data": "clone Graph 见 hash"
+    },
+    {
+      "type": "text",
+      "data": "word ladder"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int ladderLength(String beginWord, String endWord, Set<String> wordDict) {\r\n        HashSet cur = new HashSet<String>();\r\n        cur.add(beginWord);\r\n        int count = 1;\r\n        while(!cur.isEmpty()) {\r\n            if(cur.contains(endWord))\r\n                return count;\r\n            count++;\r\n            cur = getNext(cur, wordDict);\r\n        }\r\n        return 0;\r\n    }\r\n    \r\n    private HashSet getNext(HashSet<String> cur, Set<String> dict) {\r\n        HashSet<String> res = new HashSet<String>();\r\n        for(String one : cur) {\r\n            char[] arr = one.toCharArray();\r\n            for(int i = 0; i < arr.length; i++) {\r\n                char temp = arr[i];\r\n                for(char j = 'a'; j <= 'z'; j++) {\r\n                    if(j != temp) {\r\n                        arr[i] = j;\r\n                        String tempStr = new String(arr);\r\n                        if(dict.contains(tempStr)) {\r\n                            res.add(tempStr);\r\n                            dict.remove(tempStr);\r\n                        }\r\n                        arr[i] = temp;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "word ladder II — 目前只要掌握如何找到就可以了 知道从两边找可以节省时间"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "title": "chapter 1 ",
+  "cells": [
+    {
+      "type": "text",
+      "data": "Chapter 1 &nbsp;A simple progrem all in a main method<div><ol><li>main method could standard alone outside of any class;</li><li>** input/output with cin/cout; (cin with while or for);</li><li>End of file in command line for Unix(Mac) is cmd+d。</li></ol></div>"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "#include <iostream>\n#include \"Sales_item.h\"\n\nusing namespace std;\n\nint main () {\n\tSales_item total;\n\tif(cin >> total) {\n\t\tSales_item trans;\n\t\twhile(cin >> trans) {\n\t\t\tif(trans.isbn() == total.isbn()) {\n\t\t\t\ttotal += trans;\n\t\t\t}\n\t\t\telse {\n\t\t\t\tcout << \"sum\" << total << endl;\n\t\t\t\ttotal = trans;\n\t\t\t}\n\t\t}\n\t\tcout << \"sum \" << total << endl;\n\t}\n\telse {\n\t\tcout << \"No data!?\" << endl;\n\t\treturn -1;\n\t}\n\treturn 0;\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "<div><br></div>"
+    }
+  ]
+}

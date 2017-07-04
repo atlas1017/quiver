@@ -1,0 +1,10 @@
+{
+  "title": "DailyAdviceServer",
+  "cells": [
+    {
+      "type": "code",
+      "language": "java",
+      "data": "import java.io.*;\nimport java.io.*;\n\npublic class DailyAdviceServer {\n  String[] allAdvice;\n  \n  public void go() {\n    try {\n      ServerSocket ss = new ServerSocket(4242);\n      Socket sock = ss.accept();\n      \n      PrintWriter pw = new PrintWriter(sock.getOutputStream());\n      String advice = getAdvice();\n      \n      pw.println(advice);\n      pw.close();\n      \n      System.out.println(advice);\n    }\n    catch (IOException ex) {\n      ex.printStackTrace();\n    }\n  }\n  \n  public String getAdvice() {\n    int rand = (int)Math.random() * allAdvice.length;\n    return allAdvice[rand];\n  }\n  \n  public static void main (String[] args) {\n    DailyAdviceServer server = new DailyAdviceServer();\n    server.go();\n  }\n}"
+    }
+  ]
+}

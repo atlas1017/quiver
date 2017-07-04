@@ -1,0 +1,189 @@
+{
+  "title": "LeetCode linkedlist",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<div style=\"widows: 1;\">swap nodes in pairs — swap every 2 adjacent nodes</div><div style=\"widows: 1;\">— 翻转某一个range的一段list 需要四个node ： prev first last after;</div><div style=\"widows: 1;\">— reverse(first);&nbsp;<span style=\"line-height: 1.4;\">prev.next = last; first.next = after;</span></div><div style=\"widows: 1;\">—<span style=\"line-height: 1.4;\">&nbsp;<span style=\"background-color: rgb(254, 250, 0);\">prev = first;</span> first = after;</span></div><div style=\"widows: 1;\">— phead （在第一个点不确定的情况下 都要用phead）&nbsp;</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode swapPairs(ListNode head) {\r\n        ListNode phead = new ListNode(0);\r\n        phead.next = head;\r\n        \r\n        ListNode prev = phead;\r\n        ListNode first = head;\r\n        ListNode last = null;\r\n        ListNode after = null;\r\n        \r\n        while(first != null) {\r\n            if(first.next == null)\r\n                break;\r\n            last = first.next;\r\n            after = last.next;\r\n            \r\n            prev.next = last;\r\n            last.next = first;\r\n            first.next = after;\r\n            \r\n            prev = first;\r\n            first = after;\r\n        }\r\n        return phead.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "merge two sorted lists"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {\r\n        ListNode phead = new ListNode(0);\r\n        ListNode cur = phead;\r\n        ListNode n1 = l1;\r\n        ListNode n2 = l2;\r\n        while(n1 != null && n2 != null) {\r\n            if(n1.val < n2.val) {\r\n                cur.next = n1;\r\n                n1 = n1.next;\r\n            }\r\n            else {\r\n                cur.next = n2;\r\n                n2 = n2.next;\r\n            }\r\n            cur = cur.next;\r\n        }\r\n        \r\n        while(n1 != null) {\r\n            cur.next = n1;\r\n            n1 = n1.next;\r\n            cur = cur.next;\r\n        }\r\n        while(n2 != null) {\r\n            cur.next = n2;\r\n            n2 = n2.next;\r\n            cur = cur.next;\r\n        }\r\n        return phead.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "<font face=\"CMR10\">remove duplicates from sorted list</font>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode deleteDuplicates(ListNode head) {\r\n        if(head == null || head.next == null)\r\n            return head;\r\n        ListNode cur = head;\r\n        ListNode next = cur.next;\r\n        while(next != null) {\r\n            if(cur.val == next.val)\r\n                cur.next = next.next;\r\n            else\r\n                cur = next;\r\n            next = next.next;\r\n        }\r\n        return head;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "linked list cycle"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean hasCycle(ListNode head) {\r\n        if(head == null || head.next == null)\r\n            return false;\r\n        ListNode prev = head;\r\n        ListNode cur = head.next;\r\n        \r\n        while(prev != cur) {\r\n            if(cur.next == null || cur.next.next == null)\r\n                return false;\r\n            prev = prev.next;\r\n            cur = cur.next.next;\r\n        }\r\n        return true;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "linked list cycle II **<div>对于找到cycle来说 距离无所谓 但是如果计算距离的话 那么就要开始就一起开始 用一个boolean来鉴别是不是第一次</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode detectCycle(ListNode head) {\r\n        if(head == null || head.next == null)\r\n            return null;\r\n        ListNode prev = head;\r\n        ListNode cur = head;\r\n        boolean first = true;\r\n        while(prev != cur || first) {\r\n            first = false;\r\n            if(cur.next == null || cur.next.next == null)\r\n                return null;\r\n            prev = prev.next;\r\n            cur = cur.next.next;\r\n        }\r\n        ListNode res = head;\r\n        while(res != prev) {\r\n            res = res.next;\r\n            prev = prev.next;\r\n        }\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "Remove Nth Node From End of List"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode removeNthFromEnd(ListNode head, int n) {\r\n        ListNode phead = new ListNode(1);\r\n        phead.next = head;\r\n        \r\n        ListNode prev = phead;\r\n        ListNode cur = head;\r\n        for(int i = 0; i < n - 1; i++)\r\n            cur = cur.next;\r\n        while(cur.next != null) {\r\n            prev = prev.next;\r\n            cur = cur.next;\r\n        }\r\n        prev.next = prev.next.next;\r\n        return phead.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "reverse linked list"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode reverseList(ListNode head) {\r\n        if(head == null || head.next == null)\r\n            return head;\r\n        ListNode prev = head;\r\n        ListNode cur = head.next;\r\n        head.next = null;\r\n        while(cur != null) {\r\n            ListNode temp = cur.next;\r\n            cur.next = prev;\r\n            prev = cur;\r\n            cur = temp;\r\n        }\r\n        return prev;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "partition list ***&nbsp;<div>用两个linkedlist 会超memory 所以需要在原来的list上面进行操作</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode partition(ListNode head, int x) {\r\n        if(head == null || head.next == null)\r\n            return head;\r\n        ListNode phead = new ListNode(0);\r\n        phead.next = head;\r\n        ListNode prev0 = phead;\r\n        ListNode cur0 = head;\r\n        while(cur0 != null && cur0.val < x) {\r\n            prev0 = prev0.next;\r\n            cur0 = cur0.next;\r\n        }\r\n        ListNode prev1 = prev0;\r\n        ListNode cur1 = cur0;\r\n        while(cur1 != null) {\r\n            if(cur1.val >= x) {\r\n                prev1 = prev1.next;\r\n                cur1 = cur1.next;\r\n            }\r\n            else {\r\n                // insert cur1 between prev0 and cur0\r\n                ListNode temp = cur1.next;\r\n                cur1.next = cur0;\r\n                prev0.next = cur1;\r\n                prev0 = prev0.next;\r\n                \r\n                prev1.next = temp;\r\n                cur1 = temp;\r\n            }\r\n        }\r\n        return phead.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "flatten binary tree to linked list **<div>比较容易出错的一个点在于 不管之前root.left 所以出来之后两边都有树</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public void flatten(TreeNode root) {\r\n        if(root == null)\r\n            return;\r\n        help(root);\r\n        return;\r\n    }\r\n    public TreeNode help(TreeNode root) {\r\n        TreeNode left = null;\r\n        TreeNode right = null;\r\n        if(root.left != null) {\r\n            left = help(root.left);\r\n            root.left = null;\r\n        }\r\n        if(root.right != null) \r\n            right = help(root.right);\r\n        root.right = left;\r\n        TreeNode cur = root;\r\n        while(cur.right != null)\r\n            cur = cur.right;\r\n        cur.right = right;\r\n        return root;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "add two numbers"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\r\n       ListNode n1 = l1;\r\n       ListNode n2 = l2;\r\n       int addOn = 0;\r\n       \r\n       ListNode res = new ListNode(0);\r\n       ListNode prev = res;\r\n       while(n1 != null && n2 != null) {\r\n           int temp = addOn + n1.val + n2.val;\r\n           ListNode one = new ListNode(temp % 10);\r\n           prev.next = one;\r\n           prev = one;\r\n           \r\n           n1 = n1.next;\r\n           n2 = n2.next;\r\n           addOn = temp / 10;\r\n       }\r\n       while(n1 != null) {\r\n           int temp = n1.val + addOn;\r\n           ListNode one = new ListNode(temp % 10);\r\n           prev.next = one;\r\n           prev = one;\r\n           \r\n           n1 = n1.next;\r\n           addOn = temp / 10;\r\n       }\r\n       while(n2 != null) {\r\n           int temp = n2.val + addOn;\r\n           ListNode one = new ListNode(temp % 10);\r\n           prev.next = one;\r\n           prev = one;\r\n           \r\n           n2 = n2.next;\r\n           addOn = temp / 10;\r\n       }\r\n       if(addOn > 0)\r\n        prev.next = new ListNode(addOn);\r\n       return res.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "merge K sorted lists<div><span style=\"background-color: rgb(254, 250, 0);\">使用变量名要保持一致</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode(int x) { val = x; }\r\n * }\r\n */\r\npublic class Solution {\r\n    public ListNode mergeKLists(ListNode[] lists) {\r\n        if(lists == null || lists.length == 0)\r\n            return null;\r\n        PriorityQueue<ListNode> q = new PriorityQueue<ListNode> (lists.length, new Comparator<ListNode> () {\r\n           public int compare (ListNode a, ListNode b) {\r\n               if(a.val == b.val) return 0;\r\n               else if(a.val > b.val) return 1;\r\n               else return -1;\r\n           } \r\n        });\r\n        for(ListNode one : lists) \r\n            if(one != null) q.add(one);\r\n        ListNode res = new ListNode(0);\r\n        ListNode prev = res;\r\n        while(!q.isEmpty()) {\r\n            ListNode poll = q.poll();\r\n            prev.next = poll;\r\n            prev = prev.next;\r\n            if(poll.next != null)\r\n                q.add(poll.next);\r\n        }\r\n        return res.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "reverse nodes in k-group<div><ol><li><span style=\"line-height: 1.4;\">写完一个method 检查所有return语句</span><br></li><li>写break的时候 检查是不是可以break到正确的问题</li></ol></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n     public ListNode reverseKGroup(ListNode head, int k) {\r\n         if(head == null || head.next == null)\r\n            return head;\r\n         ListNode phead = new ListNode(0);\r\n         phead.next = head;\r\n         \r\n         ListNode prev = phead;\r\n         ListNode first = head;\r\n         ListNode last = null;\r\n         ListNode after = null;\r\n         \r\n         while(prev != null) {\r\n             last = prev;\r\n             for(int i = 0; i < k; i++) {\r\n                 last = last.next;\r\n                 if(last == null) return phead.next;\r\n             }\r\n             after = last.next;\r\n             last.next = null;\r\n             prev.next = null;\r\n             reverse(first);\r\n             \r\n             prev.next = last;\r\n             first.next = after;\r\n             \r\n             prev = first;\r\n             first = after;\r\n         }\r\n         return phead.next;\r\n     }\r\n     public ListNode reverse(ListNode head) {\r\n         if(head == null || head.next == null)\r\n            return head;\r\n         ListNode prev = head;\r\n         ListNode cur = head.next;\r\n         head.next = null;\r\n         while(cur != null) {\r\n             ListNode temp = cur.next;\r\n             cur.next = prev;\r\n             prev = cur;\r\n             cur = temp;\r\n         }\r\n         return prev;\r\n     }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "rotate list"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode rotateRight(ListNode head, int k) {\r\n        if(head == null || head.next == null) \r\n            return head;\r\n        int len = getLen(head);\r\n        k = k % len;\r\n        if(k == 0) return head;\r\n        ListNode phead = new ListNode(1);\r\n        phead.next = head;\r\n        ListNode prev = phead;\r\n        ListNode cur = phead;\r\n        for(int i = 0; i < k; i++)\r\n            cur = cur.next;\r\n        while(cur.next != null) {\r\n            prev = prev.next;\r\n            cur = cur.next;\r\n        }\r\n        ListNode temp = prev.next;\r\n        phead.next = temp;\r\n        cur.next = head;\r\n        prev.next = null;\r\n        return phead.next;\r\n    }\r\n    \r\n    public int getLen(ListNode head) {\r\n        int count = 0;\r\n        ListNode cur = head;\r\n        while(cur != null) {\r\n            count++;\r\n            cur = cur.next;\r\n        }\r\n        return count;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "Remove Duplicates from Sorted List II&nbsp;"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode deleteDuplicates(ListNode head) {\r\n        if(head == null || head.next == null)\r\n            return head;\r\n        ListNode phead = new ListNode(0);\r\n        phead.next = head;\r\n        ListNode prev = phead;\r\n        ListNode cur = head;\r\n        while(cur != null && cur.next != null) {\r\n            if(cur.val == cur.next.val) {\r\n                int tempVal = cur.val;\r\n                while(cur != null && cur.val == tempVal)\r\n                    cur = cur.next;\r\n                prev.next = cur;\r\n            }\r\n            else {\r\n                cur = cur.next;\r\n                prev = prev.next;\r\n            }\r\n        }\r\n        return phead.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "Copy List with Random Pointer *"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public RandomListNode copyRandomList(RandomListNode head) {\r\n        if(head == null)    \r\n            return null;\r\n        RandomListNode phead = new RandomListNode(1);\r\n        RandomListNode prev = phead;\r\n        RandomListNode cur = head;\r\n        HashMap<RandomListNode, RandomListNode> map = new HashMap<RandomListNode, RandomListNode>();\r\n        while(cur != null) {\r\n            RandomListNode one = new RandomListNode(cur.label);\r\n            map.put(cur, one);\r\n            prev.next = one;\r\n            \r\n            prev = prev.next;\r\n            cur = cur.next;\r\n        }\r\n        cur = head;\r\n        RandomListNode resCur = phead.next;\r\n        while(cur != null) {\r\n            resCur.random = map.get(cur.random);\r\n            cur = cur.next;\r\n            resCur = resCur.next;\r\n        }\r\n        return phead.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "Insertion Sort List"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode insertionSortList(ListNode head) {\r\n        if(head == null || head.next == null)\r\n            return head;\r\n        ListNode sorted = new ListNode(1);\r\n        ListNode cur = head;\r\n        while(cur != null) {\r\n            ListNode prev = sorted;\r\n            while(prev.next != null && prev.next.val < cur.val)\r\n                prev = prev.next;\r\n            ListNode temp = cur.next;\r\n            cur.next = prev.next;\r\n            prev.next = cur;\r\n            cur = temp;\r\n        }\r\n        return sorted.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "reorder list<div>出错的原因</div><div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; prev.next = n1;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; n1 = n1.next;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; prev.next.next = n2;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; n2 = n2.next;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; prev = prev.next.next;&nbsp;</div></div><div>最后一行 开始写的是 prev = n2;</div><div><span style=\"background-color: rgb(254, 250, 0);\">但是这个时候n2 已经update了 所以应该向后用next推 —&gt; 能用next推的话 不要直接assign</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public void reorderList(ListNode head) {\r\n        if(head == null || head.next == null || head.next.next == null)\r\n            return;\r\n        ListNode prev = head;\r\n        ListNode cur = head;\r\n        while(cur.next != null && cur.next.next != null) {\r\n            cur = cur.next.next;\r\n            prev = prev.next;\r\n        }\r\n        ListNode first = head;\r\n        ListNode second = prev.next;\r\n        prev.next = null;\r\n        \r\n        second = reverse(second);\r\n        ListNode n1 = first;\r\n        ListNode n2 = second;\r\n        ListNode phead = new ListNode(0);\r\n        prev = phead;\r\n        while(n1 != null && n2 != null) {\r\n            prev.next = n1;\r\n            n1 = n1.next;\r\n            prev.next.next = n2;\r\n            n2 = n2.next;\r\n            prev = prev.next.next; \r\n            // update 往后退尽量用 next 避免用直接assign\r\n        }\r\n        if(n1 != null)\r\n            prev.next = n1;\r\n        return;\r\n    }\r\n    \r\n    public ListNode reverse(ListNode head){\r\n        if(head == null || head.next == null)\r\n            return head;\r\n        ListNode prev = head;\r\n        ListNode cur = head.next;\r\n        head.next = null;\r\n        while(cur != null) {\r\n            ListNode temp = cur.next;\r\n            cur.next = prev;\r\n            prev = cur;\r\n            cur = temp;\r\n        }\r\n        return prev;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "Sort List&nbsp;<div>出错的地方 — <span style=\"background-color: rgb(254, 250, 0);\">在 split list 之后没有 将prev next set 成null</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public ListNode sortList(ListNode head) {\r\n        if(head == null || head.next == null)\r\n            return head;\r\n        ListNode prev = head;\r\n        ListNode cur = head;\r\n        while(cur.next != null && cur.next.next != null) {\r\n            prev = prev.next;\r\n            cur = cur.next.next;\r\n        }\r\n        ListNode first = head;\r\n        ListNode second = prev.next;\r\n        prev.next = null; \r\n        // important !! : after splitting, set prev.next to null\r\n        first = sortList(first);\r\n        second = sortList(second);\r\n        return merge(first, second);\r\n    }\r\n    \r\n    public ListNode merge(ListNode a, ListNode b) {\r\n        ListNode n1 = a;\r\n        ListNode n2 = b;\r\n        ListNode phead = new ListNode(0);\r\n        ListNode prev = phead;\r\n        while(n1 != null && n2 != null) {\r\n            if(n1.val < n2.val) {\r\n                prev.next = n1;\r\n                n1 = n1.next;\r\n            }\r\n            else {\r\n                prev.next = n2;\r\n                n2 = n2.next;\r\n            }\r\n            prev = prev.next;\r\n        }\r\n        while(n1 != null) {\r\n            prev.next = n1;\r\n            n1 = n1.next;\r\n            prev = prev.next;\r\n        }\r\n        while(n2 != null) {\r\n            prev.next = n2;\r\n            n2 = n2.next;\r\n            prev = prev.next;\r\n        }\r\n        return phead.next;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "LRU Cache<div>想法一：</div><div>维护一个LinkedList 每次access一个node 就将这个node 移到末尾 （双向的node）</div><div>错误：</div><div>1. 当要update的是 end的时候 应该直接返回；</div><div>2.&nbsp;<span style=\"background-color: rgb(254, 250, 0);\">map.put(key, one); 忘记put了</span></div><div><br></div><div><br></div><div>想法二：</div><div>用一个timestamp 全局变量 &nbsp;每次access a node — update the timestamp</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// idea 1\npublic class LRUCache {\n    int count;\n    int limit;\n    HashMap<Integer, ListNode> map;\n    ListNode first;\n    ListNode end;\n    private class ListNode {\n        ListNode prev;\n        ListNode next;\n        int key;\n        int value;\n        public ListNode(int k, int v) {\n            key = k;\n            value = v;\n            prev = null;\n            next = null;\n        }\n    }\n\tpublic LRUCache(int capacity){\n\t\tmap = new HashMap<Integer, ListNode>();\n\t\tcount = 0;\n\t\tlimit = capacity;\n\t\tfirst = null;\n\t\tend = null;\n\t}\n\n\n\tpublic int get(int key){\n\t    if(map.containsKey(key)) {\n\t        ListNode one = map.get(key);\n\t        update(one);\n\t        return one.value;\n\t    }\n\t    return -1;\n\t}\n\n\tpublic void set(int key, int value){\n\t    if(map.containsKey(key)) {\n\t        ListNode one = map.get(key);\n\t        one.value = value;\n\t        update(one);\n\t    }\n\t    else {\n\t        if(count < limit) {\n\t            ListNode one = new ListNode(key, value);\n\t            map.put(key, one);\n\t            if(first == null) {\n\t                first = one;\n\t                end = one;\n\t            } \n\t            else {\n\t                end.next = one;\n\t                one.prev = end;\n\t                one.next = null;\n\t                end = one;\n\t            }\n\t            count++;\n\t        }\n\t        else {\n\t            ListNode temp = first.next;\n\t            first.next = null;\n\t            map.remove(first.key);\n\t            first = temp;\n\t            \n\t            ListNode one = new ListNode(key, value);\n\t            map.put(key, one);\n\t            one.prev = end;\n\t            end.next = one;\n\t            end = one;\n\t        }\n\t    }\n\t}\n\t\n\tpublic void update(ListNode one) {\n\t        if(end == one)\n\t            return;\n\t        if(first == one) {\n\t            ListNode temp = first.next;\n\t            first = temp;\n\t            one.prev = end;\n\t            one.next = null;\n\t            end.next = one;\n\t            end = one;\n\t        }\n\t        else {\n\t            ListNode before = one.prev;\n\t            ListNode after = one.next;\n\t            before.next = after;\n\t            after.prev = before;\n\t            one.prev = end;\n\t            one.next = null;\n\t            end.next = one;\n\t            end = one;\n\t        }\n\t        return;\n\t}\n}"
+    },
+    {
+      "type": "text",
+      "data": "想法二： 错误的地方<div>1. Comparator 忘记类型</div><div>2. 比较的时候 — 比较val —&gt; 应该比较time</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class LRUCache {\n    public class ListNode {\n        int key;\n        int value;\n        int time;\n        public ListNode(int k, int v, int t) {\n            key = k;\n            value = v;\n            time = t;\n        }\n    }\n    int limit;\n    int time;\n    PriorityQueue<ListNode> q;\n    HashMap<Integer, ListNode> map;\n\tpublic LRUCache(int capacity){\n\t\ttime = 0;\n\t\tlimit = capacity;\n\t\tmap = new HashMap<Integer, ListNode>();\n\t\tq = new PriorityQueue<ListNode>(limit, new Comparator<ListNode>() {\n\t\t    public int compare(ListNode a, ListNode b) {\n\t\t        if(a.time < b.time) return -1;\n\t\t        else if(a.time == b.time) return 0;\n\t\t        else return 1;\n\t\t    }\n\t\t});\n\t}\n\tpublic int get(int key){\n\t    time++;\n\t    if(map.containsKey(key)) {\n\t        ListNode one = map.get(key);\n\t        one.time = time;\n\t        q.remove(one);\n\t        q.add(one);\n\t        return one.value;\n\t    }\n\t    else\n\t        return -1;\n\t}\n\n\tpublic void set(int key, int value){\n\t    time++;\n\t    if(map.containsKey(key)) {\n\t        ListNode one = map.get(key);\n\t        one.time = time;\n\t        q.remove(one);\n\t        q.add(one);\n\t        one.value = value;\n\t    }\n\t    else {\n\t        if(map.size() < limit) {\n\t            ListNode one = new ListNode(key, value, time);\n\t            map.put(key, one);\n\t            q.add(one);\n\t        }\n\t        else {\n\t            ListNode first = q.poll();\n\t            map.remove(first.key);\n\t            ListNode one = new ListNode(key, value, time);\n\t            map.put(key, one);\n\t            q.add(one);\n\t        }\n\t    }\n\t    return;\n\t}\n}"
+    },
+    {
+      "type": "text",
+      "data": "<div>常见的题目类型：</div>\n<div>find nodes at pos(insert and delete), reverse some nodes in a range, merge nodes</div>\n<div>基础的题目：</div>\n<div>1.找离终点第N个node 并且remove；</div>\n<div>2.找有没有圈 入口在哪儿；（类似的题目 找两个list merge的点） &lt;— 这类问题的关键点在于 如何让多个点 “同步”；</div>\n<div>3.reverse 整个list &nbsp;每过一小段reverse一下 —&gt; 需要处理边界的问题</div>\n<div>4.list addition （string addition） —&gt; while &amp;&amp; , while, while, if, return</div>\n<div>5.partition list —&gt; 其实是对于list中的元素 进行分类和重新组合 —&gt; 其实如果先分成两个list再conctanate也是in place的</div>\n<div>6.insertion sort and merge sort for lists&nbsp;</div>\n<div>7. LRU &amp;&amp; copy with random pointers &amp;&amp; merge K sorted lists</div>\n<div><br></div>\n<div>常用的技巧：</div>\n<div>1.phead as fake head and make the first element to be able to be tested;(would be used in most situations except some situations like reverse because the last one would be returned)</div>\n<div>2.reverse &amp;&amp; sort &nbsp;先假设我们已经做好了一部分 剩下来就是把新的元素放进去；</div>\n<div>3.处理node的时候 如果有一些其它的信息需要额外处理 — HashMap 是一个很常用的工具;</div>\n<div>4 处理多个list — 处理多个node — well maintained queue PriorityQueue&lt;Node&gt;</div>\n<div><br></div>\n<div>PriorityQueue&lt;ListNode&gt; q = new PriorityQueue&lt;ListNode&gt;(length, new Comparator&lt;ListNode&gt;()</div>\n<div>{</div>\n<div>&nbsp; &nbsp; &nbsp;public int compare(ListNode a, ListNode b)</div>\n<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</div>\n<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(a.value &lt; b.value)</div>\n<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return -1; &nbsp; &nbsp;&nbsp;</div>\n<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else if(a.value == b.value)</div>\n<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return 0;</div>\n<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else</div>\n<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return 1;</div>\n<div>&nbsp; &nbsp;&nbsp; }</div>\n<div>});</div>"
+    }
+  ]
+}

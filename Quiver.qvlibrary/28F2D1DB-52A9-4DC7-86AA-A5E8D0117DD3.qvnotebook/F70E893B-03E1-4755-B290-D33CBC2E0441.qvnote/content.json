@@ -1,0 +1,18 @@
+{
+  "title": "LeetCode Hash",
+  "cells": [
+    {
+      "type": "text",
+      "data": "clone graph:<div>不是很难 就是Hash &nbsp;+ BFS(recursion)</div><div>错误： 没有update HashMap — clone的题目 每次新建一个clone 都要把放到map里面去</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    HashMap<UndirectedGraphNode, UndirectedGraphNode> map;\r\n    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {\r\n        if(node == null)\r\n            return null;\r\n        map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();\r\n        return helpClone(node);\r\n    }\r\n    public UndirectedGraphNode helpClone(UndirectedGraphNode node) {\r\n        UndirectedGraphNode one = new UndirectedGraphNode(node.label);\r\n        map.put(node, one);\r\n        for(UndirectedGraphNode oneNeighbor : node.neighbors) {\r\n            if(map.containsKey(oneNeighbor))\r\n                one.neighbors.add(map.get(oneNeighbor));\r\n            else\r\n                 one.neighbors.add(helpClone(oneNeighbor));\r\n        }\r\n        return one;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

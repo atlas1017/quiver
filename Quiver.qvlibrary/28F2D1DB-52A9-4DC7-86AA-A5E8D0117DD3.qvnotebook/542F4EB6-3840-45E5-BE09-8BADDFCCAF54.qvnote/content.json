@@ -1,0 +1,36 @@
+{
+  "title": "LeetCode bit manipulation",
+  "cells": [
+    {
+      "type": "text",
+      "data": "single number and single number II<div>要注意的东西：&nbsp;</div><div>java shift 需要 assign ： unit = unit &lt;&lt; 1;&nbsp;</div><div>java 里面的&amp;运算 需要加括号</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\n    public int singleNumber(int[] nums) {\n       int res = 0;\n\t   int unit = 1;\n\t   for(int i = 0; i < 32; i++) {\n\t        int count = 0;\n\t        for(int one : nums) \n\t            if((one & unit) != 0) count++;\n            res += unit * (count % 3);\n            unit = unit << 1;\n       }\n       return res;\n    }\n}"
+    },
+    {
+      "type": "text",
+      "data": "power of two"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public boolean isPowerOfTwo(int n) {\r\n        if(n < 1)\r\n            return false;\r\n        return (n & n-1) == 0;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "一道变形的题目 get the number of 1 in bit for a number — O(k) k is the number of 1s"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public int getOne (int num) {\n  int count = 0;\n  while (num != 0) {\n    num &= num - 1;\n    count++;\n  }\n  return count;\n}"
+    },
+    {
+      "type": "text",
+      "data": "<br>"
+    }
+  ]
+}

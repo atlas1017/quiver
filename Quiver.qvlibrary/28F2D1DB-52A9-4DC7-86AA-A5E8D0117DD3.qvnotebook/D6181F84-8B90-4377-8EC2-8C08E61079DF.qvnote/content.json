@@ -1,0 +1,13 @@
+{
+  "title": "zillow 电话一面",
+  "cells": [
+    {
+      "type": "text",
+      "data": "听口音像是美国小哥叫Nathan 上来介绍说自己是做image processing和delivery的 随便说了说就开始做题目"
+    },
+    {
+      "type": "text",
+      "data": "一共面了50分钟 三道题目<div>1. atoi的变形 — 两部分一部分是integer 一部分是用分数表示的fraction 用space隔开 然后要求返回一个double的结果</div><div>2. 二维DP&nbsp;</div><div>3. median of a stream data</div><div>最近没有怎么写题目 手有点生 所以写出来的开始都有点问题</div>"
+    }
+  ]
+}

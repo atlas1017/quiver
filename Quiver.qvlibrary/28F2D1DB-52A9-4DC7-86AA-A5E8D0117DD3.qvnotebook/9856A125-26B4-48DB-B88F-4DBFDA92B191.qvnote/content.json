@@ -1,0 +1,21 @@
+{
+  "title": "问面试官的问题",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\">压箱底的宝贵答案来了！！</span><br style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\"><span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\">“您作为领导，看到的在这个职位上做的很出色的员工都有什么特质？”</span><br style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\"><span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\">这是一个外企HR教的，意思是，要提出一个让面试官要思考一阵子才能回答的问题。</span>"
+    },
+    {
+      "type": "text",
+      "data": "<span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\">公司对我这个职位的期望是什么？</span><br style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\"><span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\">为了胜任这个岗位我还需要学习哪些技术知识？</span><br>"
+    },
+    {
+      "type": "text",
+      "data": "<ol style=\"padding: 0px; margin: 0.8em 0px 0.8em 2em; list-style-position: outside; color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\"><li style=\"padding: 0px; margin: 0px 0px 5px;\">技术过硬——这是基本要求</li><li style=\"padding: 0px; margin: 0px 0px 5px;\">表现出愿意跟面试者工作（即使之后他不会直接跟你在一个团队）的意愿，也表现出能吸引别人跟你一起工作的特质——不能因为你战斗力爆表，如果你会影响整个团队的战斗力，要招你还是得非常谨慎 &nbsp;&nbsp;<span style=\"line-height: 17.68px;\">团队合作气氛如何呢？如果我加入的话能给你们带来哪些方面的补充？我可以在这里学到些什么？有哪些你们需要的而且我可以贡献的技能/知识/流程？团队的工作节奏怎么样，我应该怎么才能适应大家？大家的工作流程是怎么样（workflow)?——问了这些，至少面试官会觉得，你在意大家的想法，愿意为跟大家一起工作做出你的努力。</span></li><li style=\"padding: 0px; margin: 0px 0px 5px;\">有解决问题，对解决问题抱有兴趣——这几乎是what we are paid for</li><li style=\"padding: 0px; margin: 0px 0px 5px;\">真的真的真的真的真的有意愿来我们这里工作，至少严肃认真地考虑了我们而不是来试试水打打太极——面了你不来的话，岂不是在浪费时间。让五个工程师来面你大概成本就在500美元左右了（加州市价估算一下），还不计HR，机票之类之类的破事儿呢</li></ol>"
+    },
+    {
+      "type": "text",
+      "data": "<span style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\">有些job scope 没有讲清楚 可以再问一下， 但是如果已经讲过了就千万别问了</span><br style=\"color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\"><ul style=\"padding: 0px; margin: 0.8em 0px 0.8em 2em; list-style-position: outside; color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\"><li style=\"padding: 0px; margin: 0px 0px 5px;\">What does a typical day look like?</li><li style=\"padding: 0px; margin: 0px 0px 5px;\">What are the biggest challenges that someone in this position would face?</li><li style=\"padding: 0px; margin: 0px 0px 5px;\">How will my performance be reviewed?</li></ul><ul style=\"padding: 0px; margin: 0.8em 0px 0.8em 2em; list-style-position: outside; color: rgb(34, 34, 34); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 17.68px; widows: 1;\"><li style=\"padding: 0px; margin: 0px 0px 5px;\">What are the skills and experiences you’re looking for in an ideal candidate?</li><li style=\"padding: 0px; margin: 0px 0px 5px;\">What attributes does someone need to have in order to be really successful in this position?</li></ul>"
+    }
+  ]
+}

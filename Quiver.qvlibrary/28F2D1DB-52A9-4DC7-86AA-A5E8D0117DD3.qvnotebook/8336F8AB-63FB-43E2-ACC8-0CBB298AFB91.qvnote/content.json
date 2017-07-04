@@ -1,0 +1,151 @@
+{
+  "title": "九章 算法培训 笔记",
+  "cells": [
+    {
+      "type": "text",
+      "data": "&nbsp; &nbsp; &nbsp; Coding style:<div><ol><li>变量名 make sense</li><li>运算符两边都需要 空格 （operator）</li><li>只有一句话 也要加括号</li><li>空行的作用 — 区分不同的逻辑块</li><ol><li>异常判断</li><li>主要逻辑</li><li>返回</li></ol><li>异常检测的习惯 （在access 之前需要先做检测<span style=\"line-height: 1.4;\">）</span></li><li><span style=\"line-height: 1.4;\">边界检测的习惯</span></li></ol><div><br></div></div><div>&nbsp; &nbsp; &nbsp; 算法面试 算法只占三分之一 三分之一是沟通 三分之一是代码质量</div><div><br></div><div>&nbsp; &nbsp; &nbsp; 测试 主动给出合理的 testcase（不是testing codes 所以只要给出input）</div>"
+    },
+    {
+      "type": "text",
+      "data": "&nbsp; &nbsp; 锻炼白板写code<div>&nbsp; &nbsp; 快速清晰的写出旧题</div><div>&nbsp; &nbsp; 面对不会的题目&nbsp;</div>"
+    },
+    {
+      "type": "text",
+      "data": "归类、整理模板和思路<div>稍微有难度的题目 10 分钟</div><div>很直观的题目 5 分钟</div><div><br></div><div>排列组合模板</div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// subsets\npublic List<List<Integer>> subsets(int n) {\n  List<List<Integer>> res = new ArrayList<List<Integer>>();\n  List<Integer> one = new ArrayList<Integer>();\n  helpAdding(res, one, n, 0);\n  return res;\n}\n\npublic void helpAdding(List<List<Integer>> res, List<Integer> one, int n, int pos) {\n  res.add(new ArrayList<Integer>(one));\n  for(int i = pos; i < n; i++) {\n    if(i > pos && i == i - 1) {\n      continue;\n    }\n    one.add(i + 1);\n    helpAdding(res, one, i + 1);\n    one.remove(one.size() - 1);\n  }\n  return;\n}"
+    },
+    {
+      "type": "text",
+      "data": "如果在面试里面出现了bug &amp;&amp; debug的过程<div>1. 首先给一个test case</div><div>2. 不要急于给出一个dispatch — 有可能其它的地方也有bug</div><div>3. 重新梳理一遍 — 再看看有没有bug</div><div>4. 在debug的时候 不断地和面试官沟通 （我在做什么样事情 怎么debug）</div><div>5. 写的时候不用说太多&nbsp;</div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "用quick sort 做sort list的时候 其实不用swap 用partition list<div>劣势在于 如果对于list &nbsp;不方便做random access as pivot</div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "递归 和 动态规划"
+    },
+    {
+      "type": "text",
+      "data": "数字三角形&nbsp;<div>二维DP —&gt; 滚动数组（比较难表达 所以没有被要求的话不要实现）</div><div><br></div><div>动态规划的几点要素</div><div>1. 定义好 什么叫状态 — 从0，0到达这个店最小的</div><div>2. 状态转移方程 — 状态时如何转移的</div><div>3. 状态时怎么初始化的</div><div>4. 结果如何提取</div><div><br></div><div>什么时候应该想到DP：</div><div>1. 求最大最小</div><div>2. 求是不是</div><div>3. 计数 不同的答案的个数</div><div><br></div><div>如果本身可以进行sort 或者 swap — longest consecutive integer&nbsp;</div><div><br></div><div>不同类型的动态规划： （DP更像是一种思想 而不是一种方法）</div><div><ol><li><span style=\"line-height: 1.4;\">矩阵的动态规划 10%</span></li><ol><li><span style=\"line-height: 1.4;\">怎么在矩阵里面走</span></li><li><span style=\"line-height: 1.4;\">先对第零行和第零列的值</span></li></ol><li>只有一个sequene 的DP 40%</li><ol><li>给一个序列 array string （不能交换关系）</li><li>例子 jump game 能不能跳到最后</li><ol><li>用F[i] 能不能到</li><li>转移 — 之前有一个可以跳过来</li><li>开始的时候 F[0] = true</li><li>答案： F[n - 1]</li></ol><li>jump game II&nbsp;</li><ol><li>f[i] 最少多少步</li><li>转移 — 有哪一个可以跳过来 最小</li><li>开始的时候 f[0] = 0</li><li>答案 f[n - 1]</li></ol><li>例子 求分割 回文分割 — 给序列 求最小</li><ol><li>f[i] means min part 对于前 i 字符</li><li>转移方程 上一个 + 1 和 之前某一个 + 1 如果从哪个位置到当前位置是回文;</li><li>初始化 f[0] = 0; f[i] = i;&nbsp;</li><li>结果输出f[n] - 1;</li><li>然后可能需要进一步优化 回文用dp构造 isPalin</li></ol><li>例子 word break — 反过来到最后 能不能break</li><ol><li>f[i] 能不能被划分</li><li>转移 如果前面有一个已经能够被划分 并且有这么一个单词可以跨过来 那么这个也可以完美划分（max length L）</li><li>初始条件 f[0] = true</li><li>结果 f[n - 1]</li></ol><li>longest increasing sequence</li></ol><li>有两个sequence 研究两个string 或者两个 array &nbsp;之间的匹配关系</li><ol><li>longest common sequence 不一定是连续的</li><ol><li>f[i][j] 第一个前i个 匹配第二个前j 个最长LCS；</li><li>转移方程 if (a1[i] == arr[j]) f[i][j] = f[i - 1][j - 1];</li><li>f[i][j] = Math.max(f[i - 1][j]); same for f[i][j - 1]</li><li>初始化 0,i, i,0 都是0</li><li>输出f[len1][len2]</li></ol><li>edit distance — 增加和删除是一样的 insert</li><ol><li>dp[i][j] 对于第一个前i个 和 第二个第j个 编辑距离</li><li>转移方程 — 看看最后一个是不是相同 然后比上或者左</li><li>初始化 0,i = i; i,0 = i</li><li>输出 dp[len1][len2]</li></ol><li>distinct subsequence</li><ol><li>dp[i][j] 第一个前i个 包含多少个 第二个前j个 subsequence</li><li>转移 dp[i][j] = dp[i - 1][j] 如果最后一个相同 +dp[i -1][j - 1]</li><li>初始化 0，0 = 1； 不然第一个空 0；第二个空 1</li><li>输出 dp[len1][len2];</li></ol></ol><li>背包问题</li><ol><li>题目一 ： 有arr（元素正数） 能不能取出来若干个数字 和是target</li><ol><li>dp[i][S] 表示对于前i个数字 能不能组成S</li><li>dp[i][S] = dp[i - 1][S] || dp[i - 1][S - a[i]]</li><li>初始化&nbsp;</li><li>返回 f[n][target<span style=\"line-height: 1.4;\">]</span></li></ol><li>如果限制取的个数 — 是否 DP — 个数 DP — 所有方案 DFS</li><ol><li>三维地柜 dp[i][j][k] 对于前i个数字 取出j的数字 和为k</li></ol><li>最小调整代价&nbsp;</li><li>交换伴侣的位置</li></ol><li>不同状态下的动态规划 基于状态的动态规划</li></ol></div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "Graph and Search （BFS — 只用一个queue &nbsp;或者queue）<div><ol><li>clone graph</li><li>topological sorting 在一个图里面 存在一种拓补关系</li><ol><li>每次找没有input node 的点 然后对于每个指向的node 移掉</li><li>接着找没有inward node 的点 直到所有的点都被access</li></ol></ol></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// Clone Graph -- BFS\r\npublic class Solution {\r\n    HashMap<UndirectedGraphNode, UndirectedGraphNode> map;\r\n    HashSet<UndirectedGraphNode> visited;\r\n    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {\r\n        if(node == null) {\r\n            return null;\r\n        }\r\n        \r\n        map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();\r\n        List<UndirectedGraphNode> queue = new ArrayList<UndirectedGraphNode>();\r\n        visited = new HashSet<UndirectedGraphNode>();\r\n        queue.add(node);\r\n        visited.add(node);\r\n        while(!queue.isEmpty()) {\r\n            UndirectedGraphNode one = queue.remove(0);\r\n            UndirectedGraphNode copy = new UndirectedGraphNode(one.label);\r\n            map.put(one, copy);\r\n            for(UndirectedGraphNode oneNeighbor : one.neighbors) {\r\n                if(!visited.contains(oneNeighbor)) {\r\n                    queue.add(oneNeighbor);\r\n                    visited.add(oneNeighbor);\r\n                }\r\n            }\r\n        }\r\n        \r\n        visited = new HashSet<UndirectedGraphNode>();\r\n        queue.add(node);\r\n        visited.add(node);\r\n        while(!queue.isEmpty()) {\r\n            UndirectedGraphNode one = queue.remove(0);\r\n            UndirectedGraphNode copy = map.get(one);\r\n            for(UndirectedGraphNode oneNeighbor : one.neighbors) {\r\n                copy.neighbors.add(map.get(oneNeighbor));\r\n                if(!visited.contains(oneNeighbor)) {\r\n                    queue.add(oneNeighbor);\r\n                    visited.add(oneNeighbor);\r\n                }\r\n            }\r\n        }\r\n        \r\n        return map.get(node);\r\n    }\r\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// clone graph -- recursion\npublic class Solution {\n    HashMap<UndirectedGraphNode, UndirectedGraphNode> map;\n    HashSet<UndirectedGraphNode> visited;\n    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {\n        map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();\n        return cloneHelper(node);\n    }\n    \n    private UndirectedGraphNode cloneHelper(UndirectedGraphNode node) {\n        if(node == null) {\n            return null;\n        }\n        \n        UndirectedGraphNode copy = new UndirectedGraphNode(node.label);\n        map.put(node, copy);\n        for(UndirectedGraphNode oneNeighbor : node.neighbors) {\n            if(map.containsKey(oneNeighbor)) {\n                copy.neighbors.add(map.get(oneNeighbor));\n            }\n            else {\n                copy.neighbors.add(cloneHelper(oneNeighbor));\n            }\n        }\n        \n        return copy;\n    } \n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "big data 的题目"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li><span style=\"line-height: 1.4;\">&nbsp;most frequent IP address&nbsp;</span><span style=\"line-height: 1.4;\">一个log 文件 在内存放不下 硬盘放得下</span></li><ol><li><span style=\"line-height: 1.4;\">naive method&nbsp;</span>—<span style=\"line-height: 1.4;\">&nbsp;use hashmap to count each ip</span></li><ol><li><span style=\"line-height: 1.4;\">time O(N * read)</span></li><li><span style=\"line-height: 1.4;\">memory O(N</span>’<span style=\"line-height: 1.4;\">) 不同的ip地址</span></li></ol><li>ip 的特点 是ip一共有2^32个 所以可以开4G的array</li><ol><li>如果只有100M 的内存</li><li>用hashing 把不同的ip 分类 （通常来说writing的cost 大概是reading 的10到100倍）</li></ol><li>如何在损失精度的情况下（probability algo） — 极小概率成为most frequent ip O(N * read) O(1) space — &nbsp;<a href=\"http://micvog.com/2015/07/18/frequency-counting-algorithms-over-data-streams/\">http://micvog.com/2015/07/18/frequency-counting-algorithms-over-data-streams/</a>&nbsp;(following 2) &nbsp; &nbsp; &nbsp; &nbsp; —&nbsp;<a href=\"http://www.cse.ust.hk/vldb2002/VLDB2002-proceedings/slides/S10P03slides.pdf\">http://www.cse.ust.hk/vldb2002/VLDB2002-proceedings/slides/S10P03slides.pdf</a>&nbsp;(slides)</li><ol><li>lossy counting — 一道编程之美的题目 总数大于1/4的数字 每次去掉四个不同的数字 最后剩下的就是大于四分之一的数字</li><ol><li>大概的想法是不断地计数所有的counts 因为target most frequent so we just keep some “fixed” number of counts (a.k.a throwing some others that have fewer counts)</li><li>一个throwing 的具体做法是 在一个window结束之后 对于每一个count decrement</li><li>有的时候 a preprocessing step is that we could do the splition by hashing berore hand</li></ol><li>sticky sampling</li><ol><li>在对于每一个block做完count 之后 —&gt; 丢掉一些很小的&nbsp;</li><li>用来保证存在的counter 的数目总是一定的 （counter的数目的确定的 min heap）</li></ol></ol></ol><li>Top K&nbsp;</li><ol><li>用一个min heap (kind of naive way)</li><ol><li>跟top k 的最小的比</li><li>keep k in the min head and each time</li><li>hash1 for counting each element; and hash2 for checking if the element has been in heap</li><li>time O(N + Nlog(k)) space O(N’)</li></ol><li>用hashing 分 然后找出top k</li><li>概率算法</li><ol><li>&nbsp;hcount 算法 — h[hashing(key) % memory size]++</li><li>会有损失 但是如果默认memory size 那么小的话 会有一个近似解</li></ol></ol><li>bit map 约定好某一个位置 存储一个 boolean值</li><li>bloom filter — it is a hashmap (节省空间) 但是牺牲了accuracy</li><ol><li>how it works — for hashing usually it is an array of linked list</li><ol><li>但是对于bloom filter &nbsp;用4个不同的hashing function 算出四个不同的hashing value， 在一个array 里面四个true</li><li>找一个数字的4个hashing value 如果都是true —&gt; 返回存在 否则返回不存在</li><li>false positive — 有可能不存在但是返回存在</li><li>改进 — 如果计数的话 对于每一个addition — 找出左右的hashing value的最小值</li><li>节省时间和空间 损失精度</li></ol><li>例子 word search in a file system</li><ol><li>每一个file里面包含了很多单词 — 找出所有包含这个word 的file</li><li>优化 先对于每个文件 做word bloom filter 检索 不存在则不存在 如果存在的话 iteration</li></ol></ol><li>对于N个不同的server上面的top k ip address</li><ol><li>naive not precise — find 10*k for each file</li><li>assign ip to different machines — too many relocation (network latency) &lt;—&gt; need a good map reduce system</li></ol><li>find common URL&nbsp;</li><ol><li>split files by using hashing function</li><li>bloom filter</li></ol></ol>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "High Frequency questions"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li>single number — 只有一个1次 其余的都是2次</li><li>single number II — 只有一个1次 其余的都是3次 — 三进制 抵消思想</li><li>single number III — 首先能拿到 A ^ B</li><ol><li>对于A^B 而言 如果有一位是1 那么这一位上面一个是0 一个是1</li><li>然后对于这位分类 — 这位上面是1的是分一组 另外为0的分一组</li><li>各自再做^ 就会发现A和B</li></ol><li>majority number I — 如果两个不一样的 两个都扔掉 until找不到不相同的</li><ol><li>怎么取出2个不一样</li></ol><li>majority number II — 大于 1 / 3 取出来三个不同的</li><li>majority number III — 大于1 / k 维护一个 k - 1 的hashmap</li></ol>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "\n// major number I\npublic int majorityNumber(int[] nums) {\n  int count = 0;\n  int candidate = 1;\n  for(int i = 0; i < nums.length; i++) {\n    if(count == 0) {\n      candidate = nums[i];\n      count++;\n    }\n    else {\n      if(nums[i] == candidate)\n        count++;\n      else \n        count--;\n    }\n  }\n  return candidate;\n}\n\npublic int majorNumberII(int[] num)\n// 用2个candidates 和 2个counter\n// 最后的超过 1 / k 的那个在这个两个中\n// 但是不确定是哪一个 \n// 回头再遍历一遍\n\npublic int majorityNum3(int[] arr) \n// 用一个HashMap 如果hashmap 里面没有并且hashmap的size 不到 k - 1\n// 添加这个entry; 如果包含这个entry 直接++\n// 如果没有这个entry 并且已经 k - 1 每一个-- 并且remove 如果到零\n// 最后最多会剩下 k - 1 个数字 所有的数字都要再扫一遍 找出最大的"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li>买卖股票 I&nbsp;</li><ol><li>for 卖出时间 所以前面最小的买进去</li><li>维护一个之前最小的价格 然后在当天卖出 就可以获得这天卖出的最大值</li></ol><li>买卖股票 II — 买卖任意多次 grab all values</li><li>只能买卖两次股票 — 如果还是需要O(n)时间 可以有O(N)的空间</li><ol><li>一定会有一个分割线 在这个分割线之前 我们完成了第一笔交易</li><li>在这个分割线之后 完成了第二笔交易 直接用这个分割线的话 O(N^2)</li><li>用一个数组记录 从某点开始 或者到某点结束的最大值</li></ol><li>买卖股票 4</li><li>买卖股票 有间隔期</li></ol>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public int maxProfit3(int[] prices) {\n  int[] maxEnd = getMaxEnd(prices);\n  int[] maxStart = hetMaxEnd(prices);\n}"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li><span style=\"line-height: 1.4;\">subarray I</span><br></li><ol><li>常用的前i个 元素的和 — subarray 就是两个preArray的差</li><li>转换成买卖股票I</li></ol><li>subarray II</li><ol><li>算一个划分位置 然后用数组先记录&nbsp;</li><li>然后买卖股票 II</li></ol><li>subarray III — 数组划成k个部分 — 动态规划&nbsp;<span style=\"line-height: 1.4;\">k 段区间</span></li><ol><li>f[i][j] 前 i 划分成 j 部分 能得到的最大的和</li><li>f[i][j] = max(f[x][j - 1] + maxSum(x + 1, i))</li><li>可以通过记录降到O(N^2 * k)</li></ol><li>subarray 4 — 最小 求最大 — 先乘-1</li><li>subarray 5 — 找出没有交集的两个subarray 差值最大</li><ol><li>划分两部分 — 左边最大 右边最小 或者 左边最小 右边最大</li><li>都试一下 维护一个</li></ol><li>subarray 6 — 求是不是有一个subarray 是 0 — 最接近0 （做不到O(n) 先排序）</li></ol><div>** subsequence 可以是不连续的 但是对于subarray而言 要求是连续的</div>"
+    },
+    {
+      "type": "text",
+      "data": "Nsum 的问题<div><ol><li>k sum方案的总数</li><ol><li>f[i][j][t] 表示对于前i个数 拿了j个数 加起来等于 t</li><li>要么拿了第i个 要么没有拿</li><li>初始化 f[0][0][0] = 1 f[0][a][b] = 0 — 滚动数组</li></ol></ol></div>"
+    },
+    {
+      "type": "text",
+      "data": "partition array&nbsp;"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li>划分两个部分 左边的都小于A；右边的都大于等于k 然后return index；</li><ol><li>左边找一个大于等于k的 右边找一个大于等于k &nbsp;直到停下来</li></ol><li>sort by case</li><ol><li>左边找一个大写的 右边的找一个小写的 然后交换</li></ol><li>sort colors</li><ol><li>做两次 关键字排序</li></ol><li><span style=\"line-height: 1.4;\">[1,2,-1,3,4,-5,-6] =&gt; [1,-1,2,-5,3,-6,4]&nbsp;</span>—<span style=\"line-height: 1.4;\">&nbsp;要求 穿插开来</span></li><li>偶数位置 的 大于等于 相邻的两个的位置的数字 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span style=\"line-height: 1.4;\">— quick select 找出第 （len / 2） + 1 个数字 然后 partition — 然后 穿插 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>—<span style=\"line-height: 1.4;\">&nbsp;wiggle sort codes follows</span></li></ol>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public void wiggle(int[] arr) {\n  if(arr == null || arr.length < 2) {\n    return;\n  } \n  \n  int prev = arr[0];\n  boolean increment = true;\n  for(int i = 1; i < arr.length; i++) {\n    if((increment && prev <= arr[i])\n    || (!increment && prev >= arr[i])) {\n      arr[i - 1] = prev;\n      prev = arr[i];\n    }\n    else {\n      arr[i - 1] = arr[i];\n      arr[i] = prev;\n    }\n    increment = !increment;\n  }\n  \n  return;\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "&nbsp;"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

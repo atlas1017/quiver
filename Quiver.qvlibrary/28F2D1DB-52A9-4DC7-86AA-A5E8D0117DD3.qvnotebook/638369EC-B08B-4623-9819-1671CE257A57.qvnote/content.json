@@ -1,0 +1,14 @@
+{
+  "title": "LeetCode Greedy",
+  "cells": [
+    {
+      "type": "text",
+      "data": "trapping rain water"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public int trap(int[] height) {\r\n        if(height == null || height.length < 3)\r\n            return 0;\r\n        int m = height[0];\r\n        for(int oneH : height)\r\n            m = Math.max(oneH, m);\r\n        int res = 0;\r\n        int start = 0;\r\n        int end = nextMax(start, height, m);\r\n        while(end >= 0) {\r\n            res += collect(start, end, height);\r\n            start = end;\r\n            end = nextMax(start, height, m);\r\n        }\r\n        int[] last = new int[height.length - start];\r\n        for(int i = 0; i < last.length; i++)\r\n            last[i] = height[height.length - 1 - i];\r\n        res += collect(0, last.length - 1, last);\r\n        return res;\r\n    }\r\n    private int nextMax(int start, int[] height, int max) {\r\n        for(int i = start + 1; i < height.length; i++)\r\n            if(height[i] == max) return i;\r\n        return -1;\r\n    }\r\n    private int collect(int start, int end, int[] heights) {\r\n        int p = start;\r\n        int res = 0;\r\n        while(p < end) {\r\n            int q = p + 1;\r\n            while(heights[q] < heights[p])\r\n                q++;\r\n            for(int i = p + 1; i < q; i++)\r\n                res += heights[p] - heights[i];\r\n            p = q;\r\n        }\r\n        return res;\r\n    }\r\n}"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "title": "google 面试准备 （II）",
+  "cells": [
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// quick sort and quick select\npublic int partition (int[] arr, int pos, int left, int right) {\n  if(left >= right) {\n    return left;\n  }\n  \n  swap(arr, pos, right);\n  int cur = left;\n  for(int i = left; i < right; i++) {\n    if(arr[i] <= arr[right]) {\n      swap(arr, i, cur);\n      cur++;\n    }\n  }\n  \n  swap(arr, cur, right);\n  return cur;\n}\n\n// for quick select \npublic int quickSelect(int[] arr, int left, int right, int k) {\n  // we start from start and ends in end to find   // kth element from start (starts from 0)\n  if(arr == null || arr.length == 0 || right - left < k) {\n    return Integer.MIN_VALUE;\n    // maybe throw a illegalArgumentException\n  }\n  \n  int rand = Random.nextInt(right + 1 - left) + left;\n  int pos = partition(arr, rand, left, right);\n  if(pos == k) {\n    return arr[pos];\n  }\n  else if(pos < k) {\n    return quickSelect(arr, pos + 1, right, k - pos - 1);\n  }\n  else {\n    return quickSelect(arr, left, pos - 1, k);\n  }\n  \n  return Integer.MAX_VALUE;\n}\n\n\n// quick sort \npublic void quickSort(int[] arr, int left, int right) {\n  if(arr == null || left >= right) {\n    return;\n  }\n  \n  int rand = Random.nextInt(right - left + 1) + left;\n  int pod = partition(arr, left, right, rand);\n  quickSort(arr, left, pos - 1);\n  quickSort(arr, pos + 1, right);\n  return;\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "merge sort&nbsp;<div>— stable</div><div>— worst case O(nlogn)</div><div>— usually slower;&nbsp;</div><div>— and also cost extra space</div><div><br></div><div>quicksort&nbsp;</div><div>— usually faster than merge sort (some constant coefficient)</div><div>— do not need extra space</div><div>— but not stable(say order for same values stay the same)</div><div>— worst case O(n^2)<br><div><br></div></div>"
+    },
+    {
+      "type": "text",
+      "data": "滑雪问题 给一个rectangle 返回最大的距离"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "// consecutive\npublic int getMax(int[][] arr) {\n  if(arr == null || arr.length == 0 || arr[0].length == 0) {\n    return 0;\n  }\n  \n  int[] endsMax = new int[arr.length][arr[0].length];\n  for(int i = 0; i < arr.length; i++) {\n    for(int j = 0; j < arr[0].length; j++) {\n      endsMax[i][j] = 1;\n    }\n  }\n  \n  for(int i = 0; i < arr.length; i++) {\n    for(int j = 0; j < arr[0].length; j++) {\n      // make sure that this pos is okay\n      doDFS(arr, i, j, endsMax);\n    }\n  }\n  \n  int max = 1;\n  for(int i = 0; i < arr.length; i++) {\n    for(int j = 0; j < arr[0].length; j++) {\n      max = Math.max(max, endsMax[i][j]);\n    }\n  }\n  \n  return max;\n}\n\nprivate void doDFS(int[][] arr, int row, int col, int[][] endsMax) {\n  int temp = endsMax[row][col];\n  if(row - 1 >= 0 && arr[row - 1][col] == arr[row][col] - 1 && temp + 1 > endsMax[row - 1][col]) {\n    endsMax[row - 1][col] = temp + 1;\n  }\n  //similar for other 3 directions\n  ...\n  ...\n  ...\n  return;\n}"
+    }
+  ]
+}

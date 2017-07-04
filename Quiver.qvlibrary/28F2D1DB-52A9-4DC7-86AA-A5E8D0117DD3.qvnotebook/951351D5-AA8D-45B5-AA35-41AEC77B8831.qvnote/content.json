@@ -1,0 +1,17 @@
+{
+  "title": "已经投的公司",
+  "cells": [
+    {
+      "type": "text",
+      "data": "内推：<div>facebook, linkedin, google(挂), tableau(offer), twitter(挂), amazon, indeed, Airbnb(挂),</div>"
+    },
+    {
+      "type": "text",
+      "data": "FoCS Brunch &amp; career fair:&nbsp;<div>palantir, pure storage(挂)，whatsapp(挂)， graphiq(挂)， trip advisor，bloomberg(挂)，yelp, &nbsp;splunk, pinterest, dropbox,&nbsp;quatrics, &nbsp;citadel(挂)</div>"
+    },
+    {
+      "type": "text",
+      "data": "网投：<div>zillow lyft(挂) salesforce wealthfront snapchat quora(挂) medallia(挂) stripe(挂) microsoft asana&nbsp;Uber Slack 2sigma</div>"
+    }
+  ]
+}

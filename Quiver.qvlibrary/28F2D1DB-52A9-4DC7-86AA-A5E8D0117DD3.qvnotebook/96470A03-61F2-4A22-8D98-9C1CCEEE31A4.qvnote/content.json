@@ -1,0 +1,40 @@
+{
+  "title": "LeetCode 待整理",
+  "cells": [
+    {
+      "type": "text",
+      "data": "N-Queens &amp; N-Queens II — DFS<br>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\n    public List<List<String>> solveNQueens(int n) {\n        List<List<String>> res = new ArrayList<List<String>>();\n        List<Integer> cols = new ArrayList<Integer>();\n        helpAdding(res, cols, n);\n        return res;\n    }\n    \n    public void helpAdding(List<List<String>> res, List<Integer> cols, int n) {\n        if(cols.size() == n) {\n            res.add(getSol(cols));\n            return;\n        }\n        for(int i = 0; i < n; i++) {\n            if(cols.contains(i))\n                continue;\n            boolean skip = false;\n            for(int j = 0; j < cols.size(); j++) {\n                if(cols.size() - j == Math.abs(cols.get(j) - i)) {\n                    skip = true;\n                    break;\n                }\n            }\n            if(skip) continue;\n            cols.add(i);\n            helpAdding(res, cols, n);\n            cols.remove(cols.size() - 1);\n        }\n        return;\n    }\n    \n    public List<String> getSol(List<Integer> cols) {\n        List<String> res = new ArrayList<String>();\n        char[] oneLine = new char[cols.size()];\n        Arrays.fill(oneLine, '.');\n        for(int i = 0; i < cols.size(); i++) {\n            oneLine[cols.get(i)] = 'Q';\n            String one = new String(oneLine);\n            oneLine[cols.get(i)] = '.';\n            res.add(one);\n        }\n        return res;\n    }\n}"
+    },
+    {
+      "type": "text",
+      "data": "pow (x, n) — recursion"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public double myPow(double x, int n) {\r\n        if(n < 0)\r\n            return 1 / help(x, -n);\r\n        return help(x, n);\r\n    }\r\n    \r\n    public double help(double x, int n) {\r\n        if(n == 0)\r\n            return 1;\r\n        double temp = help(x, n / 2);\r\n        if(n % 2 == 0)\r\n            return temp * temp;\r\n        else \r\n            return temp * temp * x;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": "divide two integers — this question has many corner cases related to overflow, ignore it"
+    },
+    {
+      "type": "text",
+      "data": "group anagram &nbsp;<span style=\"line-height: 1.4;\">anagram 字谜</span><div><span style=\"line-height: 1.4;\">用HashMap 比较蠢 但是还是可以做的</span></div><div><span style=\"line-height: 1.4;\">直接sort 然后 比较String</span></div>"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "data": "public class Solution {\r\n    public List<List<String>> groupAnagrams(String[] strs) {\r\n        HashMap<String, List<String>> m = new HashMap<String, List<String>> ();\r\n        for(String one : strs) {\r\n            char[] oneArr = one.toCharArray();\r\n            Arrays.sort(oneArr);\r\n            String temp = new String(oneArr);\r\n            if(m.containsKey(temp)) {\r\n                List<String> tempInsertList = m.get(temp);\r\n                int index = 0;\r\n                while(index < tempInsertList.size() && one.compareTo(tempInsertList.get(index)) > 0)\r\n                    index++;\r\n                tempInsertList.add(index, one);\r\n            }\r\n            else {\r\n                List<String> tempList = new ArrayList<String>();\r\n                tempList.add(one);\r\n                m.put(temp, tempList);\r\n            }\r\n        }\r\n        \r\n        List<List<String>> res = new ArrayList<List<String>>();\r\n        for(List<String> oneList : m.values()) \r\n            res.add(oneList);\r\n        return res;\r\n    }\r\n}"
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

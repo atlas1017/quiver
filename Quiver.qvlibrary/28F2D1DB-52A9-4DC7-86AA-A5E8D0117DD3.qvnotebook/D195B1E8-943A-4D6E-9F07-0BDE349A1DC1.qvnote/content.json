@@ -1,0 +1,29 @@
+{
+  "title": "九章 系统设计 1",
+  "cells": [
+    {
+      "type": "text",
+      "data": "design a tiny URL"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li><span style=\"line-height: 1.4;\">产生一个short code 用一个id</span><br></li><li>在一个单一的database里面存储</li><li>如果能到id 就直接读到url</li></ol><div>两个问题：&nbsp;</div><div>存满了怎么办 存储空间</div><div>读取和存储的速度</div>"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li>数字扩展成 64base 的 a~z A~Z 0~9 + -</li><li>读取的速度 cache （考虑read / write rate）</li></ol><div>可以改进的地方：</div><div>用什么样的数据库 noSQL — 基于key value</div><div>mySQL slow 有很多限制保证consistency</div><div>如果有database挂了怎么办</div>"
+    },
+    {
+      "type": "text",
+      "data": "<ol><li>sharding and standby — replica and reliability</li><li>存储方式的比较</li><li><img src=\"quiver-image-url/F70073DC-3F46-43CC-98E6-71F8B25D7F6C.png\"></li></ol>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}

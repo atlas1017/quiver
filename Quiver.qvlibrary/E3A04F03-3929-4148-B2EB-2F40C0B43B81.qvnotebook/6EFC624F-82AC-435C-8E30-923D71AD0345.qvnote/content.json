@@ -1,0 +1,64 @@
+{
+  "title": "371P  8/28 Testing (assertion, code coverage and incrementation)",
+  "cells": [
+    {
+      "type": "text",
+      "data": "!. Assertions and tests"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "data": "#include <cassert>  // assert\n#include <iostream> // cout, endl\n\nint cycle_length (int n) {\n    assert(n > 0);\n    int c = 0; // this is wrong -- which should be 1\n    while (n > 1) {\n        if ((n % 2) == 0)\n            n = (n / 2);\n        else\n            n = (3 * n) + 1;\n        ++c;}\n    assert(c > 0);\n    return c;}\n\nint main () {\n    using namespace std;\n    cout << \"Assertions.c++\" << endl;\n\n    assert(cycle_length( 1) == 1);\n    assert(cycle_length( 5) == 6);\n    assert(cycle_length(10) == 7);\n    // here is an inapproriate use of assert \n    // because the test would stop when 20 is run\n    cout << \"Done.\" << endl;\n    return 0;}"
+    },
+    {
+      "type": "text",
+      "data": "Assert (condition) , the condition would be tested when executed;<div>So it should be fatal error rather than something like wrong result</div>"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "data": "#include <cassert>  // assert\n#include <iostream> // cout, endl\n\n#include \"gtest/gtest.h\"\n\n#include \"Collatz1.h\"\n\nTEST(MyUnitTests, test_1) {\n    ASSERT_EQ(cycle_length( 1), 1);}\n\nTEST(MyUnitTests, test_2) {\n    ASSERT_EQ(cycle_length( 5), 6);}\n\nTEST(MyUnitTests, test_3) {\n    ASSERT_EQ(cycle_length(10), 7);}"
+    },
+    {
+      "type": "text",
+      "data": "In the codes above, this file would run tests for input of 1 6 and 7;<div><a href=\"https://code.google.com/p/googletest/wiki/Primer#Assertions\">https://code.google.com/p/googletest/wiki/Primer#Assertions</a><br></div><div>In this webpage, the ASSERT_EQ means that the test would only pass when no error and the value is correct; or it will stop.</div><div>But this will not affect the execution of other tests</div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "2.Code coverage"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "data": "/*\n/*\n% g++ -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Coverage1.c++ -o Coverage1 -lgtest -lgtest_main -pthread\n\n\n% gcov -version\ngcov (Ubuntu 4.8.4-2ubuntu1~14.04) 4.8.4\nCopyright (C) 2013 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.\nThere is NO warranty; not even for MERCHANTABILITY or\nFITNESS FOR A PARTICULAR PURPOSE.\n*/\n\n/*\n% gcov -b Coverage1.c++ | grep -A 5 \"File 'Coverage1.c++'\"\nFile 'Coverage1.c++'\nLines executed:100.00% of 2\nBranches executed:60.00% of 20\nTaken at least once:30.00% of 20\nCalls executed:56.52% of 23\nCreating 'Coverage1.c++.gcov'\n*/\n"
+    },
+    {
+      "type": "text",
+      "data": "execute a bundle of tests and then see the percentage or numbers of execution times&nbsp;"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "3. IsPrime example&nbsp;<div>&nbsp; &nbsp; the algo is wrong for 2 reasons:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; a. the 2 would be identified as not prime</div><div>&nbsp; &nbsp; &nbsp; &nbsp; b. the prime ^ 2 would be identified as not prime</div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    },
+    {
+      "type": "text",
+      "data": "4. preIncrement and postIncrement<div><br></div><div>a = i++;</div><div>Because we want to get the initial value of i while i++ would add 1 to i and return which means that we cannot get the initial i any more.</div><div>&nbsp;— the solution is that the ++ operation would make a copy and then add 1 to i and then return the copy(whcih is a value not a variable)</div><div><br></div><div>++i;&nbsp;</div><div>This will just return the incremented i;</div><div><br></div><div>So i++++ is not legal because i++ would return a copy of the initial value (which is also a value) but a value cannot be incremented; while ++++i is legal which means i += 2; beacuse the ++i return i and then we could do the incrementation again</div><div><br></div><div>An way of optimization&nbsp;</div><div>int a = b++; &nbsp;? only the int optimiation;</div><div>if not assignment then i++ —&gt; ++i ?</div><div><br></div>"
+    },
+    {
+      "type": "text",
+      "data": ""
+    }
+  ]
+}
